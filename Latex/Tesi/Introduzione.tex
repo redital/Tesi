@@ -46,7 +46,7 @@ E' semplice vedere come ad una griglia più fitta corrisponda una miglior qualit
 Una miglior risoluzione però costa, come anticipato, in termini di memoria. Una griglia 4x4 corrisponde a 16 pixel, ad una griglia 80x80 corrispondono invece 6400 pixel! Questo vuol dire che la seconda immagine pesa 400 volte di più della prima.
 
 
-Volendo definire in maniera più precisa cosa sia un'immagine digitale, diremmo che è una funzione da $\mathbb R^2$ in $\mathbb R^3$ siccome, date in input due cordinate questa funzione ci restituisce un colore (che è formato da 3 canali RGB).
+Volendo definire in maniera più precisa cosa e' un'immagine digitale, diremmo che quest'ultima è una funzione da $\mathbb R^2$ in $\mathbb R^3$ cioè, date in input due coordinate, essa restituisce un colore (che è formato da 3 canali RGB). Se però l'immagine è in bianco e nero la questione si semplifica: l'immagine diventa una funzione da $\mathbb R^2$ in $\mathbb R$, dal momento che per codificare un colore appartenente alla scala di grigio basta un solo canale, il livello di luminosità. Difatti, la riduzione da tre ad un solo canale rappresenta un grosso vantaggio, permettendo di diminuire di due terzi lo spazio di memoria occupato.
 
 \section{Cosa sono i filtri}
 Una volta capito che un'immagine è una funzione possiamo definire un filtro come una seconda funzione che convoluta alla prima da il risultato richiesto.
@@ -60,19 +60,7 @@ u(x)=\frac{1}{w(x)}\int\int d(x-\xi)\Tilde{d}(u_0(x) -u_0(\xi))u_0(\xi)d\xi.
 
 \centering con  $w(x) = \int\int d(x-\xi)\Tilde{d}(u_0(x) -u_0(\xi))d\xi$\newline
 
-
 \raggedright
 
-Prendiamo in esame l'equazione del calore
+Definiti questi concetti siamo pronti ad iniziare la trattazione vera e propria
 
-
-
-\begin{equation} \label{eq:eq2}
-\begin{cases}
-
-\frac{\partial u}{\partial t}(t,x)-\Delta u(t,x) = 0 \ x \in \mathbb R^2, t\ge 0 \ .\\ 
-
-u(0,x) = u_0(x)\ . \\
-
-\end{cases}
-\end{equation}
