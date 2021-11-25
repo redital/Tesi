@@ -31,12 +31,12 @@ Vediamo con uno script matlab come opera nella pratica. \\
 Per fare ciò operiamo una approssimazione alle differenze finite per il calcolo delle derivate. Questa si rifà molto alla definizione in se di derivata. Decidiamo quindi di approssimare \\
 \vspace{2pt}
 \centering 
-$\frac{du}{dx} \approx \frac{u_i+1 - u_i}{delta(x)} $\\
+$\frac{du}{dx} \approx \frac{u_{i+1} - u_i}{\Delta(x)} $\\
 \vspace{2pt}
 \raggedright
 Se la derivata seconda è la derivata della derivata, allora approssimiamo \\
 \vspace{3cm}
-
+\begin{interlinea}{6}
 \begin{table}[htp]              
 \centering                      
 \begin{tabular}%                
@@ -45,9 +45,9 @@ Se la derivata seconda è la derivata della derivata, allora approssimiamo \\
 
 $\frac{d^2u}{dx^2} \approx$ &
 $\frac{
-(\frac{u_i+1 - u_i}{\Delta(x)})_i+1 
+(\frac{u_{i+1} - u_i}{\Delta(x)})_{i+1} 
 - 
-(\frac{u_i+1 - u_i}{\Delta(x)})_i
+(\frac{u_{i+1} - u_i}{\Delta(x)})_i
 }{\Delta(x)}$
 
 \\
@@ -57,9 +57,9 @@ $\frac{
 \\
 $=$ &
 $\frac{
-\frac{(u_i+1 - u_i)_i+1}{\Delta(x)} 
-- 
-\frac{(u_i+1 - u_i)_i}{\Delta(x)}
+\frac{(u_{i+1} - u_i)_{i+1}}{\Delta(x)} 
+-   
+\frac{(u_{i+1} - u_i)_i}{\Delta(x)}
 }{\Delta(x)}$
 
 \\
@@ -69,9 +69,9 @@ $\frac{
 \\
 $=$ &
 $\frac{
-\frac{(u_i+2 - u_i+1)}{\Delta(x)} 
+\frac{(u_{i+2} - u_{i+1})}{\Delta(x)} 
 - 
-\frac{(u_i+1 - u_i)}{\Delta(x)}
+\frac{(u_{i+1} - u_i)}{\Delta(x)}
 }{\Delta(x)}$
 
 \\
@@ -81,9 +81,9 @@ $\frac{
 \\
 $=$ &
 $\frac{
-\frac{(u_i+2 - u_i+1) 
+\frac{(u_{i+2} - u_{i+1}) 
 - 
-(u_i+1 - u_i)}{\Delta(x)}
+(u_{i+1} - u_i)}{\Delta(x)}
 }{\Delta(x)}$
 
 \\
@@ -93,37 +93,40 @@ $\frac{
 \\
 $=$ &
 $\frac{
-(u_i+2 - u_i+1) 
+(u_{i+2} - u_{i+1}) 
 - 
-(u_i+1 - u_i)}
+(u_{i+1} - u_i)}
 {\Delta(x)^2}$
 
 \\
 
-\vline &
+\vline
+
+\\
+$=$ &
 $\frac{
- u_i+2 - u_i+1 
--u_i+1 + u_i}
+ u_{i+2} - u_{i+1} 
+-u_{i+1} + {u_i}}
 {\Delta(x)^2}$
 \\
 
 \end{tabular}
 \end{table}
-
+\end{interlinea}
 
 
 Per una migliore approssimazione è bene utilizzare un valore di delta(x) quanto più basso possibile. Il massimo che possiamo fare è vedere la differenza tra un pixel e quello adiacente ossia $\Delta(x)=1$, ma allora 
 $$\frac{d^2u}{dx^2} \approx
 \frac{
- u_i+2 - u_i+1 
--u_i+1 + u_i}
-{\Delta(x)^2} = u_i+2 -2 u_i+1 + u_i$$
-Capiamo che scorrendo tutti gli indici questo è equivalente a $u_i+1 -2 u_i + u_i-1.$
+ u_{i+2} - u_{i+1} 
+-u_{i+1} + u_i}
+{\Delta(x)^2} = u_{i+2} -2 u_{i+1} + u_i$$
+Capiamo che scorrendo tutti gli indici questo è equivalente a $u_{i+1} -2 u_i + u_{i-1}.$
 
 In sintesi utilizzeremo per il calcolo del laplaciamo l'approssimazione \\
 \vspace{2pt}
 \centering 
-$\frac{d^2u}{dx^2} \approx u_i+1 -2 u_i + u_i-1$\\
+$\frac{d^2u}{dx^2} \approx u_{i+1} -2 u_i + u_{i-1}$\\
 \vspace{2pt}
 \raggedright
 Vediamo lo script:
@@ -159,8 +162,7 @@ end
 
 \end{lstlisting}
 \vspace{1em}
-Provando a cambiare il tempo, ossia il numero di iterazioni, osserviamo come un maggior lasso di tempo produca immagini più sfocate. 
-Questo metodo però non è poi molto utile in generale, sì, il rumore viene eliminato o almeno ridotto ma si perdono importanti dettagli.\\
+Provando a cambiare il tempo, ossia il numero di iterazioni, osserviamo come un maggior lasso di tempo produca immagini più sfocate. \\
 
 \begin{figure}[htb] 
 \centering
@@ -170,6 +172,12 @@ Questo metodo però non è poi molto utile in generale, sì, il rumore viene eli
 %\includegraphics[scale=0.03]{Pictures/canvas8x8.png}
 \caption{Effetti dell'eq del calore nel tempo.}\label{fig:figura}
 \end{figure}
+
+
+Questo metodo però non è poi molto utile in generale, sì, il rumore viene eliminato o almeno ridotto ma si perdono importanti dettagli, esistono procedimenti come il metodo Perona-Malik che sono decisamente più utili. L'idea del metodo Perona-Malik è di applicare l'equazione del calore nelle regioni in cui il colore è più uniforme, così da preservarne i bordi\\
+
+
+\section{Rilevamento dei bordi}
 
 Operando una derivata in una data direzione, per il significato in sè di derivata, questa assume valori più elevati quando la variazione è elevata, e assume valori nulli quando non c'è variazione in quella direzione. Per questo motivo, applicata ad un' immagine, ne rileviamo i bordi!\\
 Presa una tinta unita la derivata sarà quindi nulla in ogni suo punto (è intuitivo, se un'immagine è una funzione che, date due coordinate restituisce un colore, allora una tinta unita è una funzione costante ed in quanto tale ha derivata nulla).\\
@@ -246,7 +254,7 @@ Ovviamente, date queste premesse, il gradiente sarà costante uguale $u_x$ (sicc
 Il fatto che in entrambi questi esempi il laplaciano sia nullo è un buon segno, lo useremo per rilevare i bordi ed in queste immagini non ve ne sono, quindi è giusto che il laplaciano sia nullo.\\
 
 \newpage
-\begin{figure}[htb] 
+\begin{figure}   
 \centering
 \includegraphics[scale=0.4, trim = 0 0 0 10.5cm, clip]{Pictures/Risultati/sfumatura diagonale bianco e nero derivate parziali.png}
 \includegraphics[scale=0.4, trim = 0 0 0 10.5cm, clip]{Pictures/Risultati/sfumatura diagonale bianco e nero gradiente e laplaciano.png}

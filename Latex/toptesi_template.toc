@@ -11,3 +11,4 @@
 \contentsline {part}{{\fontencoding {T1}\selectfont II}\hspace {1em}Prima Parte}{17}{part.2}%
 \contentsline {chapter}{\numberline {2}Equazione del calore e metodo Perna-Malik}{19}{chapter.2}%
 \contentsline {section}{\numberline {2.1}L'equazione del calore}{19}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Rilevamento dei bordi}{21}{section.2.2}%
