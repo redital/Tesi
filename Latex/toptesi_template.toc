@@ -16,5 +16,7 @@
 \contentsline {subsection}{\numberline {2.2.2}Morphing}{21}{subsection.2.2.2}%
 \contentsline {part}{{\fontencoding {T1}\selectfont II}\hspace {1em}Prima Parte}{23}{part.2}%
 \contentsline {chapter}{\numberline {3}Equazione del calore e metodo Perna-Malik}{25}{chapter.3}%
-\contentsline {section}{\numberline {3.1}L'equazione del calore}{25}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Rilevamento dei bordi}{27}{section.3.2}%
+\contentsline {section}{\numberline {3.1}Metodo delle differenze finite}{25}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Errore di troncamento}{26}{section.3.2}%
+\contentsline {section}{\numberline {3.3}L'equazione del calore}{28}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Rilevamento dei bordi}{29}{section.3.4}%

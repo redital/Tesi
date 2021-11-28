@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.9.30)  28 NOV 2021 15:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.9.30)  28 NOV 2021 21:30
 entering extended mode
 **./toptesi_template.tex
 (toptesi_template.tex
@@ -1026,6 +1026,9 @@ LaTeX Warning: Label `fig:figura' multiply defined.
 
 LaTeX Warning: Label `fig:figura' multiply defined.
 
+
+LaTeX Warning: Label `fig:figura' multiply defined.
+
 )
 \openout1 = `toptesi_template.aux'.
 
@@ -1332,13 +1335,13 @@ LaTeX Font Info:    Calculating math sizes for size <10.03757> on input line 15
 [13
 
 ]
-<Pictures/in ricordo del pinguino cameriere.png, id=164, 4015.0pt x 4015.0pt>
+<Pictures/in ricordo del pinguino cameriere.png, id=166, 4015.0pt x 4015.0pt>
 File: Pictures/in ricordo del pinguino cameriere.png Graphic file (type png)
 <use Pictures/in ricordo del pinguino cameriere.png>
 Package pdftex.def Info: Pictures/in ricordo del pinguino cameriere.png  used o
 n input line 29.
 (pdftex.def)             Requested size: 120.4448pt x 120.4448pt.
-<Pictures/canvas8x8.png, id=166, 4015.0pt x 4015.0pt>
+<Pictures/canvas8x8.png, id=168, 4015.0pt x 4015.0pt>
 File: Pictures/canvas8x8.png Graphic file (type png)
 <use Pictures/canvas8x8.png>
 Package pdftex.def Info: Pictures/canvas8x8.png  used on input line 32.
@@ -1348,7 +1351,7 @@ File: Pictures/in ricordo del pinguino cameriere.png Graphic file (type png)
 Package pdftex.def Info: Pictures/in ricordo del pinguino cameriere.png  used o
 n input line 38.
 (pdftex.def)             Requested size: 120.4448pt x 120.4448pt.
-<Pictures/canvas80x80.png, id=167, 4015.0pt x 4015.0pt>
+<Pictures/canvas80x80.png, id=169, 4015.0pt x 4015.0pt>
 File: Pictures/canvas80x80.png Graphic file (type png)
 <use Pictures/canvas80x80.png>
 Package pdftex.def Info: Pictures/canvas80x80.png  used on input line 41.
@@ -1364,12 +1367,12 @@ Capitolo 2.
 [17
 
 ]
-<Pictures/nastro Bartlane.jpg, id=192, 513.92pt x 220.825pt>
+<Pictures/nastro Bartlane.jpg, id=194, 513.92pt x 220.825pt>
 File: Pictures/nastro Bartlane.jpg Graphic file (type jpg)
 <use Pictures/nastro Bartlane.jpg>
 Package pdftex.def Info: Pictures/nastro Bartlane.jpg  used on input line 18.
 (pdftex.def)             Requested size: 359.74153pt x 132.66785pt.
-<Pictures/img del 1921 a 5 gradazioni di grigio.jpg, id=194, 281.05pt x 180.675
+<Pictures/img del 1921 a 5 gradazioni di grigio.jpg, id=196, 281.05pt x 180.675
 pt>
 File: Pictures/img del 1921 a 5 gradazioni di grigio.jpg Graphic file (type jpg
 )
@@ -1377,7 +1380,7 @@ File: Pictures/img del 1921 a 5 gradazioni di grigio.jpg Graphic file (type jpg
 Package pdftex.def Info: Pictures/img del 1921 a 5 gradazioni di grigio.jpg  us
 ed on input line 26.
 (pdftex.def)             Requested size: 140.52464pt x 74.68822pt.
-<Pictures/img del 1929 a 15 gradazioni di grigio.jpg, id=196, 83.8332pt x 74.91
+<Pictures/img del 1929 a 15 gradazioni di grigio.jpg, id=198, 83.8332pt x 74.91
 99pt>
 File: Pictures/img del 1929 a 15 gradazioni di grigio.jpg Graphic file (type jp
 g)
@@ -1388,7 +1391,7 @@ sed on input line 28.
  [18 <./Pictures/nastro Bartlane.jpg> <./Pictures/img del 1921 a 5 gradazioni d
 i grigio.jpg> <./Pictures/img del 1929 a 15 gradazioni di grigio.jpg>]
 [19] [20]
-<Pictures/Striscia_morphing.jpg, id=216, 825.50662pt x 246.32874pt>
+<Pictures/Striscia_morphing.jpg, id=218, 825.50662pt x 246.32874pt>
 File: Pictures/Striscia_morphing.jpg Graphic file (type jpg)
 <use Pictures/Striscia_morphing.jpg>
 Package pdftex.def Info: Pictures/Striscia_morphing.jpg  used on input line 186
@@ -1402,148 +1405,154 @@ Package pdftex.def Info: Pictures/Striscia_morphing.jpg  used on input line 186
 (Tesi/Prima parte.tex
 Capitolo 3.
 
-Underfull \vbox (badness 2119) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [25
 
 ]
+[26] [27]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-34.
-
-(C:\Users\rippo\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
+83.
+ (C:\Users\rippo\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.03757> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 143.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 192.
 
-Overfull \hbox (49.70238pt too wide) in paragraph at lines 145--146
+Overfull \hbox (49.70238pt too wide) in paragraph at lines 194--195
 [][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (43.37865pt too wide) in paragraph at lines 146--147
+Overfull \hbox (43.37865pt too wide) in paragraph at lines 195--196
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[26]
-Overfull \hbox (93.96849pt too wide) in paragraph at lines 157--158
+[28]
+Overfull \hbox (93.96849pt too wide) in paragraph at lines 206--207
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][] 
  []
 
 
-Overfull \hbox (93.96849pt too wide) in paragraph at lines 158--159
+Overfull \hbox (93.96849pt too wide) in paragraph at lines 207--208
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ] 
  []
 
-<Pictures/Risultati/eq del calore.png, id=270, 843.15pt x 632.3625pt>
+<Pictures/Risultati/eq del calore.png, id=282, 843.15pt x 632.3625pt>
 File: Pictures/Risultati/eq del calore.png Graphic file (type png)
 <use Pictures/Risultati/eq del calore.png>
 Package pdftex.def Info: Pictures/Risultati/eq del calore.png  used on input li
-ne 169.
+ne 218.
 (pdftex.def)             Requested size: 337.25401pt x 252.94052pt.
-[27 <./Pictures/Risultati/eq del calore.png (PNG copy)>]
-Overfull \hbox (49.70238pt too wide) in paragraph at lines 194--195
+[29 <./Pictures/Risultati/eq del calore.png (PNG copy)>]
+Overfull \hbox (49.70238pt too wide) in paragraph at lines 243--244
 [][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (11.76pt too wide) in paragraph at lines 203--204
+Overfull \hbox (11.76pt too wide) in paragraph at lines 252--253
 [][][][][][][][][][] 
  []
 
 
-Overfull \hbox (11.76pt too wide) in paragraph at lines 207--208
+Overfull \hbox (11.76pt too wide) in paragraph at lines 256--257
 [][][][][][][][][][] 
  []
 
-[28]
-<Pictures/Risultati/tinta unita bianco e nero derivate parziali.png, id=324, 84
+[30]
+<Pictures/Risultati/tinta unita bianco e nero derivate parziali.png, id=336, 84
 3.15pt x 632.3625pt>
 File: Pictures/Risultati/tinta unita bianco e nero derivate parziali.png Graphi
 c file (type png)
 <use Pictures/Risultati/tinta unita bianco e nero derivate parziali.png>
 Package pdftex.def Info: Pictures/Risultati/tinta unita bianco e nero derivate 
-parziali.png  used on input line 237.
+parziali.png  used on input line 286.
 (pdftex.def)             Requested size: 337.25401pt x 133.44106pt.
-<Pictures/Risultati/tinta unita derivate parziali.png, id=326, 843.15pt x 632.3
+<Pictures/Risultati/tinta unita derivate parziali.png, id=338, 843.15pt x 632.3
 625pt>
 File: Pictures/Risultati/tinta unita derivate parziali.png Graphic file (type p
 ng)
 <use Pictures/Risultati/tinta unita derivate parziali.png>
 Package pdftex.def Info: Pictures/Risultati/tinta unita derivate parziali.png  
-used on input line 238.
+used on input line 287.
 (pdftex.def)             Requested size: 337.25401pt x 133.44106pt.
- [29 <./Pictures/Risultati/tinta unita bianco e nero derivate parziali.png (PNG
+ [31 <./Pictures/Risultati/tinta unita bianco e nero derivate parziali.png (PNG
  copy)> <./Pictures/Risultati/tinta unita derivate parziali.png (PNG copy)>]
 <Pictures/Risultati/sfumatura lungo x bianco e nero derivate parziali.png, id=3
-36, 843.15pt x 632.3625pt>
+49, 843.15pt x 632.3625pt>
 File: Pictures/Risultati/sfumatura lungo x bianco e nero derivate parziali.png 
 Graphic file (type png)
 <use Pictures/Risultati/sfumatura lungo x bianco e nero derivate parziali.png>
 Package pdftex.def Info: Pictures/Risultati/sfumatura lungo x bianco e nero der
-ivate parziali.png  used on input line 247.
+ivate parziali.png  used on input line 296.
 (pdftex.def)             Requested size: 337.25401pt x 133.44106pt.
 <Pictures/Risultati/sfumatura lungo x bianco e nero gradiente e laplaciano.png,
- id=338, 843.15pt x 632.3625pt>
+ id=351, 843.15pt x 632.3625pt>
 File: Pictures/Risultati/sfumatura lungo x bianco e nero gradiente e laplaciano
 .png Graphic file (type png)
 <use Pictures/Risultati/sfumatura lungo x bianco e nero gradiente e laplaciano.
 png>
 Package pdftex.def Info: Pictures/Risultati/sfumatura lungo x bianco e nero gra
-diente e laplaciano.png  used on input line 248.
+diente e laplaciano.png  used on input line 297.
 (pdftex.def)             Requested size: 337.25401pt x 133.44106pt.
- [30 <./Pictures/Risultati/sfumatura lungo x bianco e nero derivate parziali.pn
+ [32 <./Pictures/Risultati/sfumatura lungo x bianco e nero derivate parziali.pn
 g (PNG copy)> <./Pictures/Risultati/sfumatura lungo x bianco e nero gradiente e
  laplaciano.png (PNG copy)>]
 <Pictures/Risultati/sfumatura diagonale bianco e nero derivate parziali.png, id
-=346, 843.15pt x 632.3625pt>
+=359, 843.15pt x 632.3625pt>
 File: Pictures/Risultati/sfumatura diagonale bianco e nero derivate parziali.pn
 g Graphic file (type png)
 <use Pictures/Risultati/sfumatura diagonale bianco e nero derivate parziali.png
 >
 Package pdftex.def Info: Pictures/Risultati/sfumatura diagonale bianco e nero d
-erivate parziali.png  used on input line 259.
+erivate parziali.png  used on input line 308.
 (pdftex.def)             Requested size: 337.25401pt x 133.44106pt.
 <Pictures/Risultati/sfumatura diagonale bianco e nero gradiente e laplaciano.pn
-g, id=348, 843.15pt x 632.3625pt>
+g, id=361, 843.15pt x 632.3625pt>
 File: Pictures/Risultati/sfumatura diagonale bianco e nero gradiente e laplacia
 no.png Graphic file (type png)
 <use Pictures/Risultati/sfumatura diagonale bianco e nero gradiente e laplacian
 o.png>
 Package pdftex.def Info: Pictures/Risultati/sfumatura diagonale bianco e nero g
-radiente e laplaciano.png  used on input line 260.
+radiente e laplaciano.png  used on input line 309.
 (pdftex.def)             Requested size: 337.25401pt x 133.44106pt.
- [31 <./Pictures/Risultati/sfumatura diagonale bianco e nero derivate parziali.
+ [33 <./Pictures/Risultati/sfumatura diagonale bianco e nero derivate parziali.
 png (PNG copy)> <./Pictures/Risultati/sfumatura diagonale bianco e nero gradien
 te e laplaciano.png (PNG copy)>]
-<Pictures/Risultati/rettangolo bianco e nero derivate parziali.png, id=357, 843
+<Pictures/Risultati/rettangolo bianco e nero derivate parziali.png, id=369, 843
 .15pt x 632.3625pt>
 File: Pictures/Risultati/rettangolo bianco e nero derivate parziali.png Graphic
  file (type png)
 <use Pictures/Risultati/rettangolo bianco e nero derivate parziali.png>
 Package pdftex.def Info: Pictures/Risultati/rettangolo bianco e nero derivate p
-arziali.png  used on input line 276.
+arziali.png  used on input line 325.
 (pdftex.def)             Requested size: 337.25401pt x 133.44106pt.
-<Pictures/Risultati/rettangolo bianco e nero gradiente e laplaciano.png, id=359
+<Pictures/Risultati/rettangolo bianco e nero gradiente e laplaciano.png, id=371
 , 843.15pt x 632.3625pt>
 File: Pictures/Risultati/rettangolo bianco e nero gradiente e laplaciano.png Gr
 aphic file (type png)
 <use Pictures/Risultati/rettangolo bianco e nero gradiente e laplaciano.png>
 Package pdftex.def Info: Pictures/Risultati/rettangolo bianco e nero gradiente 
-e laplaciano.png  used on input line 277.
+e laplaciano.png  used on input line 326.
 (pdftex.def)             Requested size: 337.25401pt x 133.44106pt.
 )
 No file toptesi_template.bbl.
-[32 <./Pictures/Risultati/rettangolo bianco e nero derivate parziali.png (PNG c
+[34 <./Pictures/Risultati/rettangolo bianco e nero derivate parziali.png (PNG c
 opy)> <./Pictures/Risultati/rettangolo bianco e nero gradiente e laplaciano.png
  (PNG copy)>] (toptesi_template.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package rerunfilecheck Info: File `toptesi_template.out' has not changed.
-(rerunfilecheck)             Checksum: 6160B81FC387F6579AFD36234DD71A9C;2725.
+
+Package rerunfilecheck Warning: File `toptesi_template.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `toptesi_template.out':
+(rerunfilecheck)             Before: 6160B81FC387F6579AFD36234DD71A9C;2725
+(rerunfilecheck)             After:  288E1DA7084104C68868E4318B0C3153;3103.
  )
 (\end occurred inside a group at level 1)
 
@@ -1551,13 +1560,13 @@ Package rerunfilecheck Info: File `toptesi_template.out' has not changed.
 ### bottom level
 (\end occurred when \iftrue on line 73 was incomplete) 
 Here is how much of TeX's memory you used:
- 20353 strings out of 478864
- 304485 string characters out of 2848660
+ 20397 strings out of 478864
+ 305274 string characters out of 2848660
  748795 words of memory out of 3000000
- 37779 multiletter control sequences out of 15000+600000
- 523553 words of font info for 163 fonts, out of 8000000 for 9000
+ 37809 multiletter control sequences out of 15000+600000
+ 538172 words of font info for 193 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 138i,16n,136p,731b,2598s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 138i,16n,136p,731b,2596s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/rippo/AppData/L
 ocal/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Users/rippo/AppData/Local
 /Programs/MiKTeX/fonts/enc/dvips/stix/stix-ts1.enc}{C:/Users/rippo/AppData/Loca
@@ -1572,12 +1581,13 @@ m/lmtti10.pfb><C:/Users/rippo/AppData/Local/Programs/MiKTeX/fonts/type1/public/
 stix/stix-mathbb.pfb><C:/Users/rippo/AppData/Local/Programs/MiKTeX/fonts/type1/
 public/stix/stix-mathcal.pfb><C:/Users/rippo/AppData/Local/Programs/MiKTeX/font
 s/type1/public/stix/stix-mathex.pfb><C:/Users/rippo/AppData/Local/Programs/MiKT
-eX/fonts/type1/public/stix/stix-mathit.pfb><C:/Users/rippo/AppData/Local/Progra
-ms/MiKTeX/fonts/type1/public/stix/stix-mathrm.pfb><C:/Users/rippo/AppData/Local
-/Programs/MiKTeX/fonts/type1/public/stix/stix-mathtt.pfb>
-Output written on toptesi_template.pdf (32 pages, 2565467 bytes).
+eX/fonts/type1/public/stix/stix-mathit-bold.pfb><C:/Users/rippo/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/stix/stix-mathit.pfb><C:/Users/rippo/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathrm.pfb><C:/Users/rippo/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathtt.pfb>
+Output written on toptesi_template.pdf (34 pages, 2587481 bytes).
 PDF statistics:
- 451 PDF objects out of 1000 (max. 8388607)
- 130 named destinations out of 1000 (max. 500000)
+ 468 PDF objects out of 1000 (max. 8388607)
+ 134 named destinations out of 1000 (max. 500000)
  286 words of extra memory for PDF output out of 10000 (max. 10000000)
 

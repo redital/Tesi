@@ -1,5 +1,158 @@
 \chapter{Equazione del calore e metodo Perna-Malik}
 
+L'equazione del calore, come intuibile dal nome che porta, è stata formulata per determinare l'evoluzione di un sistema isolato che presenta al suo interno una data distribuzione di calore.\\
+
+Euristicamente, non è difficile pensare che possiamo codificare (pensando ad un'immagine in bianco e nero) i pixel più luminosi come punti "più caldi" e quelli più scuri come punti "più freddi" ed applicare così l'equazione del calore.\\
+
+vedremo con uno script MATLAB come opera nella pratica. \\
+Per fare ciò opereremo una approssimazione alle differenze finite per il calcolo delle derivate.\\
+
+\section{Metodo delle differenze finite}
+Questo metodo, come anticipato, lo utilizzeremo per calcolare un valore approssimato delle derivate. Il proceimento si rifà molto alla definizione in se di derivata. Decidiamo quindi di approssimare \\
+\vspace{2pt}
+\centering 
+$\frac{du}{dx} \approx \frac{u_{i+1} - u_i}{\Delta(x)} $\\
+\vspace{2pt}
+\raggedright
+Se la derivata seconda è la derivata della derivata, allora approssimiamo \\
+\vspace{3cm}
+\centering                      
+\begin{align*}
+\frac{d^2u}{dx^2} \approx &
+\frac{
+(\frac{u_{i+1} - u_i}{\Delta(x)})_{i+1} 
+- 
+(\frac{u_{i+1} - u_i}{\Delta(x)})_i
+}{\Delta(x)}
+\\
+\vline
+\\
+= &
+\frac{
+\frac{(u_{i+1} - u_i)_{i+1}}{\Delta(x)} 
+-   
+\frac{(u_{i+1} - u_i)_i}{\Delta(x)}
+}{\Delta(x)}
+\\
+\vline 
+\\
+= &
+\frac{
+\frac{(u_{i+2} - u_{i+1})}{\Delta(x)} 
+- 
+\frac{(u_{i+1} - u_i)}{\Delta(x)}
+}{\Delta(x)}
+\\
+\vline 
+\\
+= &
+\frac{
+\frac{(u_{i+2} - u_{i+1}) 
+- 
+(u_{i+1} - u_i)}{\Delta(x)}
+}{\Delta(x)}
+\\
+\vline
+\\
+= &
+\frac{
+(u_{i+2} - u_{i+1}) 
+- 
+(u_{i+1} - u_i)}
+{\Delta(x)^2}
+\\
+\vline 
+\\
+= &
+\frac{
+ u_{i+2} - u_{i+1} 
+-u_{i+1} + {u_i}}
+{\Delta(x)^2}
+\\
+\end{align*}
+
+\raggedright
+Per una migliore approssimazione è bene utilizzare un valore di $\Delta(x)$ quanto più basso possibile. Il massimo che possiamo fare è vedere la differenza tra un pixel e quello adiacente ossia $\Delta(x)=1$, ma allora 
+$$\frac{d^2u}{dx^2} \approx
+\frac{
+ u_{i+2} - u_{i+1} 
+-u_{i+1} + u_i}
+{\Delta(x)^2} = u_{i+2} -2 u_{i+1} + u_i$$
+Capiamo che scorrendo tutti gli indici questo è equivalente a $u_{i+1} -2 u_i + u_{i-1}.$
+
+In sintesi utilizzeremo per il calcolo del laplaciamo l'approssimazione \\
+\vspace{2pt}
+\centering 
+$\frac{d^2u}{dx^2} \approx u_{i+1} -2 u_i + u_{i-1}$\\
+\vspace{2pt}
+\raggedright
+
+\section{Errore di troncamento}
+
+Vale la pena di fare qualche considerazione sull'errore di troncamento che commettiamo adottando queste approssimazioni.\\
+Per definizione, l'errore è la differenza tra il valore esatto e quello approssimato, ossia: 
+
+$$
+\frac{d^2u}{dx^2}\vline_{x_i}-\frac{u_{i+1}-u_i}{\Delta(x)}\approx \frac{\Delta(x)^2}{2} \frac{d^2u}{dx^2}\vline_\xi
+$$
+
+Risulta quindi evidente che l'errore dipende da $\Delta(x)^2$. 
+Ad un'attenta analisi possiamo vedere che tra i metodi di approssimazione in avanti, in indietro o centrale, i primi due sono uguali tra di loro, quello centrale invece è diverso, esso dipende da un $\delta(x)^3$ e non da un $\delta(x)^2$, questo vuol dire che per $\delta(x)<1$ funziona meglio, per $\delta(x)>1$ funziona peggio. nel nostro caso $\delta(x)=1$ quindi la scelta è indifferente.
+Ma procediamo con ordine.\\
+
+Per brevità di notazione poniamo $\Delta(x)=h$.\\
+Dagli sviluppi di Taylor in $x_j$ di
+$u(x_{j \pm 1}) = u(x_j \pm h)$ fino al terzo ordine, si ottiene che
+
+$$
+u''(x_j) =\frac{u(x_{j+1}) - 2u(x_j) + u(x_{j-1})}{h^2} -\frac{1}{12} u(4)(\xi_j)h^2
+$$
+
+dove $\xi_j$ e un punto opportuno in $(x_{j-1} , x{j+1})$. Quindi, considerando il problema modello con condizoni di Dirichlet, per $j = 1,...,N-1$, si può scrivere che
+
+$$
+\frac{-u(x_{j+1}) + 2u(x_j) -u(x{j-1})}{h^2}
+ + \frac{1}{12} u(4)(\xi_j)h^2 + \sigma(x_j)u(x_j) = f(x_j) .
+$$
+
+Se introduciamo la notazione $\tau_{j}=\frac{1}{12} u(4)(\xi_j)h^2$ (errore di troncamento locale) e poniamo:\\
+
+$\boldsymbol{u}=[u_x...u_{N-1}]^T$\\
+$\boldsymbol{\tau_h}=[\tau_x...\tau_{N-1}]^T$\\
+$\boldsymbol{b_h}=[(f(x_1) + \frac{g_0}{h^2},f(x_2),...,f(x_{N-2}),f(x_{N-1}) + \frac{g_1}{h^2}]^T$\\
+
+possiamo allora scrivere in forma matriciale,
+$A_h\boldsymbol{u} = \boldsymbol{b_h} + \boldsymbol{\tau_h}$
+dove $A_h = \frac{1}{h^2}
+ tridiag(-1,2,-1) + diag(\sigma_1, ... ,\sigma_{N-1}) e \sigma_j = \sigma(x_j)$.\\
+\vspace{1em}
+Il metodo alle differenze finite consiste allora nel determinare un’approssimazione $u_h$ di
+u andando a risolvere il sistema lineare
+$A_hu_h = b_h.$
+Osserviamo che $\boldsymbol{u_h}$ risulta ben definito in quanto $A_h$ è una matrice non singolare.\\
+
+\vspace{1em}
+
+Risultando che $\tau_h$ tende a zero quando h tende a zero, il metodo dicesi consistente. In particolare nel nostro caso, come osservato in partenza, risulta $\tau_h = O(h^2)$ .\\
+Tuttavia la consistenza non assicura da sola la convergenza del metodo.\\
+Per studiarne laconvergenza dobbiamo considerare il comportamento dell’errore $\boldsymbol{e_h} = \boldsymbol{u_h} -\boldsymbol{u}$ quando h tende a zero. Dato che risulta $A_h\boldsymbol{e_h} = \boldsymbol{\tau_h}$, e quindi $\boldsymbol{e_h} = A_h^{-1} \boldsymbol{\tau_h}$ possiamo scrivere: $||\boldsymbol{e_h}||\geq ||A_h^{-1}|| |\boldsymbol{\tau_h}||$\\
+Vogliamo allora far vedere che, lavorando in norma infinito, siamo in grado di trovare una costante che, per ogni $h$, maggiora $||A_h^{-1}||$. \\
+A questo scopo osserviamo che si può dimostrare che sia $A_h$ che la matrice $A_{0h} = \frac{1}{h^2} tridiag(-1,2,-1)$ hanno inversa non negativa, e si ha: 
+
+$$A_{0h}^{-1}-A{h}^{-1}=A_{0h}^{-1}(A_h-A_{0h})A_h^{-1}\geq0$$
+
+Per le ipotesi su $\sigma$ questo implica $A_h^{-1}||\leq A_{0h}^{-1}||$
+osserviamo che
+$||A_{0h}^{-1}||=max_j(A_{0h}^{-1}\boldsymbol{e})_j$ dove $\boldsymbol{e}$ indica il vettore di tutti 1.\\
+Osservando che la soluzione esatta del problema $-u'' = 1, u(0) = u(1) = 0$, è il polinomio di secondo grado $\phi(x) = \frac{x(1-x)}{2}$, possiamo concludere che $A_{0h}^{-1}\boldsymbol{e})_j=\phi(x_j)$ e quindi che $A_h^{-1}||\leq A_{0h}^{-1}||\leq max_{0<x<1}|\phi_x|$.\\
+Questo risultato di stabilità ci permette di concludere che l’errore $e_h$ ha lo stesso ordine dell’errore di troncamento $\boldsymbol{\tau_h}$ e di conseguenza che il metodo è convergente del secondo ordine.
+Si noti che l’uniforme limitatezza della norma di $A_h^{-1}$ implica che il metodo numerico sia stabile 
+
+
+
+
+
+
 \section{L'equazione del calore}
 
 \raggedright
@@ -16,8 +169,6 @@ u(0,x) = u_0(x)\ . \\
 \end{cases}
 \end{equation}
 
-Prendiamo in esame l'eq del calore.
-
 L'equazione del calore, come intuibile dal nome che porta, è stata formulata per determinare l'evoluzione di un sistema isolato che presenta al suo interno una data distribuzione di calore. E' banale pensare che con il passare del tempo il calore si distribuisca, tendendo per un tempo infinito ad una distribuzione uniforme.
 
 \vspace{1em}
@@ -28,108 +179,6 @@ Otteniamo quindi un'immagine sempre più "liscia", otteniamo di fatto una sfocat
 \vspace{1em}
 
 Vediamo con uno script matlab come opera nella pratica. \\
-Per fare ciò operiamo una approssimazione alle differenze finite per il calcolo delle derivate. Questa si rifà molto alla definizione in se di derivata. Decidiamo quindi di approssimare \\
-\vspace{2pt}
-\centering 
-$\frac{du}{dx} \approx \frac{u_{i+1} - u_i}{\Delta(x)} $\\
-\vspace{2pt}
-\raggedright
-Se la derivata seconda è la derivata della derivata, allora approssimiamo \\
-\vspace{3cm}
-\begin{interlinea}{6}
-\begin{table}[htp]              
-\centering                      
-\begin{tabular}%                
-{r r}                  % parametri di incolonnamento: r (a destra), c (al centro), l (a sinistra),
-								% p (per definire la larghezza della colonna)
-
-$\frac{d^2u}{dx^2} \approx$ &
-$\frac{
-(\frac{u_{i+1} - u_i}{\Delta(x)})_{i+1} 
-- 
-(\frac{u_{i+1} - u_i}{\Delta(x)})_i
-}{\Delta(x)}$
-
-\\
-
-\vline
-
-\\
-$=$ &
-$\frac{
-\frac{(u_{i+1} - u_i)_{i+1}}{\Delta(x)} 
--   
-\frac{(u_{i+1} - u_i)_i}{\Delta(x)}
-}{\Delta(x)}$
-
-\\
-
-\vline 
-
-\\
-$=$ &
-$\frac{
-\frac{(u_{i+2} - u_{i+1})}{\Delta(x)} 
-- 
-\frac{(u_{i+1} - u_i)}{\Delta(x)}
-}{\Delta(x)}$
-
-\\
-
-\vline 
-
-\\
-$=$ &
-$\frac{
-\frac{(u_{i+2} - u_{i+1}) 
-- 
-(u_{i+1} - u_i)}{\Delta(x)}
-}{\Delta(x)}$
-
-\\
-
-\vline
-
-\\
-$=$ &
-$\frac{
-(u_{i+2} - u_{i+1}) 
-- 
-(u_{i+1} - u_i)}
-{\Delta(x)^2}$
-
-\\
-
-\vline
-
-\\
-$=$ &
-$\frac{
- u_{i+2} - u_{i+1} 
--u_{i+1} + {u_i}}
-{\Delta(x)^2}$
-\\
-
-\end{tabular}
-\end{table}
-\end{interlinea}
-
-
-Per una migliore approssimazione è bene utilizzare un valore di delta(x) quanto più basso possibile. Il massimo che possiamo fare è vedere la differenza tra un pixel e quello adiacente ossia $\Delta(x)=1$, ma allora 
-$$\frac{d^2u}{dx^2} \approx
-\frac{
- u_{i+2} - u_{i+1} 
--u_{i+1} + u_i}
-{\Delta(x)^2} = u_{i+2} -2 u_{i+1} + u_i$$
-Capiamo che scorrendo tutti gli indici questo è equivalente a $u_{i+1} -2 u_i + u_{i-1}.$
-
-In sintesi utilizzeremo per il calcolo del laplaciamo l'approssimazione \\
-\vspace{2pt}
-\centering 
-$\frac{d^2u}{dx^2} \approx u_{i+1} -2 u_i + u_{i-1}$\\
-\vspace{2pt}
-\raggedright
-Vediamo lo script:
 
 \begin{lstlisting}
 
