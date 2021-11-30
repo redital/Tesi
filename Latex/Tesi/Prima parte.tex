@@ -180,9 +180,7 @@ Otteniamo quindi un'immagine sempre più "liscia", otteniamo di fatto una sfocat
 
 Vediamo con uno script matlab come opera nella pratica. \\
 
-\begin{lstlisting}
-
-
+\begin{lstlisting}[language=MATLAB]
 Im=imread('parrot.jpeg');   %Apro l'immmagine
 Im=rgb2gray(Im);            %La trasformo in bianco e nero
 Im = imnoise(Im,'gaussian');%Aggiungo del rumore
@@ -191,20 +189,19 @@ Im = imnoise(Im,'gaussian');%Aggiungo del rumore
 
 [ny, nx, ~]=size(Im)        %Dimensioni dell'immagine
 dt=0.25;                    %Passo temporale
-u=double(Im);               %Copia dell'immagine originale su cui lavorare
-T=3			    %Tempo, ossia T/dt + 1 definisce il numero di
-                             iterazioni da eseguire
+u=double(Im);               %Copia dell'immagine originale su cui                                lavorare
+T=3			                    %Tempo, ossia T/dt + 1 definisce il numero                            di iterazioni da eseguire
 k=0.5;
 
 %---Mostro l'immagine originale
 imshow(uint8(Im))
-title("immagine originale"); 
+title('immagine originale'); 
 
 %---Metodo eq del calore
 u=double(Im);
 for t = 0:dt:T
-   u_xx = u(:,[2:nx nx],:) - 2*u + u(:,[1 1:nx-1],:);  % derivata seconda lungo x
-   u_yy = u([2:ny ny],:,:) - 2*u + u([1 1:ny-1],:,:);  % derivata seconda lungo y
+   u_xx = u(:,[2:nx nx],:) - 2*u + u(:,[1 1:nx-1],:);  % derivata                                                           seconda lungo x
+   u_yy = u([2:ny ny],:,:) - 2*u + u([1 1:ny-1],:,:);  % derivata                                                            seconda lungo y
    u= u + k*dt*(u_xx+u_yy);
    temp=u;
 end
@@ -235,46 +232,40 @@ Operando una derivata seconda in una data direzione, per il significato in sè d
 Presa una sfumatura di colore che varia in maniera lineare, la derivata seconda sarà nulla in ogni suo punto, la derivata prima sarà invece costante. 
 Scriviamo un piccolo script su MATLAB che ci mostri questo aspetto
 
-\begin{lstlisting}
+\begin{lstlisting}[language=MATLAB]
 %---Operazioni preliminari
 Im=imread("nome_immagine.png");	%Apro l'immmagine
 
 [ny, nx, ~]=size(Im)        %Memorizzo le dimensioni dell'immagine
 u=double(Im);               %Copia dell'immagine originale su cui lavorare
-h=80;                       %Definisco un parametro che usero' per 
-                             enfatizzare i bordi in fase di stampa 
+h=80;                       %Definisco un parametro che usero' per                               enfatizzare i bordi in fase di stampa 
 
 
 %---Calcolo tutte le derivate
-u_x =  u(:,[1 1:nx-1],:) - u;                       %derivata 
-                                                     prima lungo x
-u_xx = u(:,[2:nx nx],:) - 2*u + u(:,[1 1:nx-1],:);  %derivata 
-                                                     seconda lungo x
-u_y =  u([1 1:ny-1],:,:) - u;                       %derivata
-                                                     prima lungo y
-u_yy = u([2:ny ny],:,:) - 2*u + u([1 1:ny-1],:,:);  %derivata 
-                                                     seconda lungo y
-u_xy = u_x([1 1:ny-1],:,:) - u_x;                   %derivata 
-                                                     seconda mista
+u_x =  u(:,[1 1:nx-1],:) - u;                       %derivata                                                            prima lungo x
+u_xx = u(:,[2:nx nx],:) - 2*u + u(:,[1 1:nx-1],:);  %derivata                                                            seconda lungo x
+u_y =  u([1 1:ny-1],:,:) - u;                       %derivata                                                            prima lungo y
+u_yy = u([2:ny ny],:,:) - 2*u + u([1 1:ny-1],:,:);  %derivata                                                            seconda lungo y
+u_xy = u_x([1 1:ny-1],:,:) - u_x;                   %derivata                                                            seconda mista
    
 %---Stampo i risultati
 figure()
-subplot(2,3,2),text(0.3,0,nome,"FontSize",20); axis off
+subplot(2,3,2),text(0.3,0,nome,'FontSize',20); axis off
 subplot(2,3,4), imshow(Im)
-title("Immagine originale")
+title('Immagine originale')
 subplot(2,3,5), imshow(uint8(h*abs(u_x)))
-title("h*u_x")
+title('h*u_x')
 subplot(2,3,6), imshow(uint8(h*abs(u_y)))
-title("h*u_y")
+title('h*u_y')
 
 figure()
-subplot(2,3,2),text(0.3,0,nome,"FontSize",20); axis off
+subplot(2,3,2),text(0.3,0,nome,'FontSize',20); axis off
 subplot(2,3,4), imshow(Im)
-title("Immagine originale")
+title('Immagine originale')
 subplot(2,3,5), imshow(uint8(h*abs(u_x + u_y)))
-title("h*(u_x + u_y)")
+title('h*(u_x + u_y)')
 subplot(2,3,6), imshow(uint8(h*abs(u_xx + u_yy)))
-title("h*(u_xx + u_yy)")
+title('h*(u_xx + u_yy)')
 \end{lstlisting}
 
 \vspace{6em}
