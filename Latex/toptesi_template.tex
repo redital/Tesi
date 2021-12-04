@@ -38,6 +38,8 @@
 
 \lstset{style=mystyle}
 
+
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -91,7 +93,7 @@
 
 %%%%%%% Dedication
 \ifclassica%
-{\begin{dedica}
+\begin{dedica}
 
     $\heartsuit$\ %Alla mia regina
 \end{dedica}
@@ -99,7 +101,10 @@
 
 \sommario%summary
 %Here goes the abstrat of your thesis
-Lo studio delle Equazioni alle derivate parziali ed il loro impiego in ambito di filtraggio di immagini.
+
+\input{Tesi/0-Sommario}
+
+%Lo studio delle Equazioni alle derivate parziali ed il loro impiego in ambito di filtraggio di immagini.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -138,19 +143,14 @@ I candidati ringraziano vivamente il Granduca di Toscana per i mezzi messi loro 
 \mainmatter
 
 \part{Introduzione}
-\input{./Tesi/Storia ed altri problemi}
-\input{./Tesi/Introduzione.tex}
-\part{Prima Parte}
-\input{./Tesi/Prima parte.tex}
+\input{./Tesi/1-Storia del filtraggio.tex}
+\input{./Tesi/2-Nozioni introduttive.tex}
+\input{./Tesi/3-Principali problemi di elaborazione digitale.tex}
+\part{Trattazione del problema}
+\input{./Tesi/4-Eq del calore e metodo Perona-Malik.tex}
 
-
-
-
-
-
-
-
-
+%\input{Part_II/prima_parte template}
+%   \input{Part_II/chapter1_part2}
 
 \bibliography{references}
 
@@ -159,3 +159,10 @@ I candidati ringraziano vivamente il Granduca di Toscana per i mezzi messi loro 
 \end{document}
 
 \
+
+
+
+
+
+
+

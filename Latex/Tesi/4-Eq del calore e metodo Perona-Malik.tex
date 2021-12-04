@@ -1,22 +1,29 @@
-\chapter{Equazione del calore e metodo Perna-Malik}
-
+\chapter{Equazione del calore e metodo Perona-Malik}
 L'equazione del calore, come intuibile dal nome che porta, è stata formulata per determinare l'evoluzione di un sistema isolato che presenta al suo interno una data distribuzione di calore.\\
-
-Euristicamente, non è difficile pensare che possiamo codificare (pensando ad un'immagine in bianco e nero) i pixel più luminosi come punti "più caldi" e quelli più scuri come punti "più freddi" ed applicare così l'equazione del calore.\\
-
-vedremo con uno script MATLAB come opera nella pratica. \\
-Per fare ciò opereremo una approssimazione alle differenze finite per il calcolo delle derivate.\\
-
+Euristicamente, non è difficile pensare che si possa codificare (pensando ad un'immagine in bianco e nero) i pixel più luminosi come punti "più caldi" e quelli più scuri come punti "più freddi" ed applicare così l'equazione del calore.\\
+Con l'aiuto di uno script MATLAB si può osservare come opera nella pratica. Esso sfrutterà una approssimazione alle differenze finite per il calcolo delle derivate.\\
 \section{Metodo delle differenze finite}
-Questo metodo, come anticipato, lo utilizzeremo per calcolare un valore approssimato delle derivate. Il proceimento si rifà molto alla definizione in se di derivata. Decidiamo quindi di approssimare \\
-\vspace{2pt}
+Questo metodo, come anticipato, è impiegato per il calcolo un valore approssimato delle derivate. Il procedimento si rifà molto alla definizione in se di derivata. Decidiamo quindi di approssimare:\\
 \centering 
 $\frac{du}{dx} \approx \frac{u_{i+1} - u_i}{\Delta(x)} $\\
-\vspace{2pt}
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+\newpage
 \raggedright
-Se la derivata seconda è la derivata della derivata, allora approssimiamo \\
-\vspace{3cm}
-\centering                      
+Se la derivata seconda è la derivata della derivata, allora si può approssimare:\\
+\centering    
+{\large
 \begin{align*}
 \frac{d^2u}{dx^2} \approx &
 \frac{
@@ -70,26 +77,30 @@ Se la derivata seconda è la derivata della derivata, allora approssimiamo \\
 {\Delta(x)^2}
 \\
 \end{align*}
-
+}
 \raggedright
-Per una migliore approssimazione è bene utilizzare un valore di $\Delta(x)$ quanto più basso possibile. Il massimo che possiamo fare è vedere la differenza tra un pixel e quello adiacente ossia $\Delta(x)=1$, ma allora 
+Per una migliore approssimazione è bene utilizzare un valore di $\Delta(x)$ quanto più basso possibile. La migliore è guardare la differenza tra un pixel e quello adiacente ossia $\Delta(x)=1$, ma allora 
+{\large
 $$\frac{d^2u}{dx^2} \approx
 \frac{
  u_{i+2} - u_{i+1} 
 -u_{i+1} + u_i}
 {\Delta(x)^2} = u_{i+2} -2 u_{i+1} + u_i$$
-Capiamo che scorrendo tutti gli indici questo è equivalente a $u_{i+1} -2 u_i + u_{i-1}.$
+}
+\`E chiaro che scorrendo tutti gli indici questo è equivalente a $u_{i+1} -2 u_i + u_{i-1}.$
 
-In sintesi utilizzeremo per il calcolo del laplaciamo l'approssimazione \\
+In sintesi si può tuilizzare per il calcolo del laplaciamo l'approssimazione \\
 \vspace{2pt}
 \centering 
+{\large
 $\frac{d^2u}{dx^2} \approx u_{i+1} -2 u_i + u_{i-1}$\\
+}
 \vspace{2pt}
 \raggedright
-
+\newpage
 \section{Errore di troncamento}
 
-Vale la pena di fare qualche considerazione sull'errore di troncamento che commettiamo adottando queste approssimazioni.\\
+Vale la pena di fare qualche considerazione sull'errore di troncamento che si commette adottando queste approssimazioni.\\
 Per definizione, l'errore è la differenza tra il valore esatto e quello approssimato, ossia: 
 
 $$
@@ -97,55 +108,55 @@ $$
 $$
 
 Risulta quindi evidente che l'errore dipende da $\Delta(x)^2$. 
-Ad un'attenta analisi possiamo vedere che tra i metodi di approssimazione in avanti, in indietro o centrale, i primi due sono uguali tra di loro, quello centrale invece è diverso, esso dipende da un $\delta(x)^3$ e non da un $\delta(x)^2$, questo vuol dire che per $\delta(x)<1$ funziona meglio, per $\delta(x)>1$ funziona peggio. nel nostro caso $\delta(x)=1$ quindi la scelta è indifferente.
-Ma procediamo con ordine.\\
+Ad un'attenta analisi possiamo vedere che tra i metodi di approssimazione in avanti, in indietro o centrale, il calcolo dell'errore portato dai primi due sono uguali tra di loro, quello centrale invece è diverso, esso dipende da un $\Delta(x)^3$ e non da un $\Delta(x)^2$, questo vuol dire che per $\Delta(x)<1$ funziona meglio, per $\Delta(x)>1$ funziona peggio. Nel caso in analisi $\Delta(x)=1$ quindi la scelta è indifferente.
+%Ma procediamo con ordine.\\
 
 Per brevità di notazione poniamo $\Delta(x)=h$.\\
 Dagli sviluppi di Taylor in $x_j$ di
 $u(x_{j \pm 1}) = u(x_j \pm h)$ fino al terzo ordine, si ottiene che
 
 $$
-u''(x_j) =\frac{u(x_{j+1}) - 2u(x_j) + u(x_{j-1})}{h^2} -\frac{1}{12} u(4)(\xi_j)h^2
+u''(x_j) =\frac{u(x_{j+1}) - 2u(x_j) + u(x_{j-1})}{h^2} -\frac{1}{12} u^{(4)}(\xi_j)h^2
 $$
 
 dove $\xi_j$ e un punto opportuno in $(x_{j-1} , x{j+1})$. Quindi, considerando il problema modello con condizoni di Dirichlet, per $j = 1,...,N-1$, si può scrivere che
 
 $$
 \frac{-u(x_{j+1}) + 2u(x_j) -u(x{j-1})}{h^2}
- + \frac{1}{12} u(4)(\xi_j)h^2 + \sigma(x_j)u(x_j) = f(x_j) .
+ + \frac{1}{12} u^{(4)}(\xi_j)h^2 + \sigma(x_j)u(x_j) = f(x_j) .
 $$
 
-Se introduciamo la notazione $\tau_{j}=\frac{1}{12} u(4)(\xi_j)h^2$ (errore di troncamento locale) e poniamo:\\
+Introducendo la notazione $\tau_{j}=\frac{1}{12} u(4)(\xi_j)h^2$ (errore di troncamento locale) e ponendo:\\
 
 $\boldsymbol{u}=[u_x...u_{N-1}]^T$\\
 $\boldsymbol{\tau_h}=[\tau_x...\tau_{N-1}]^T$\\
 $\boldsymbol{b_h}=[(f(x_1) + \frac{g_0}{h^2},f(x_2),...,f(x_{N-2}),f(x_{N-1}) + \frac{g_1}{h^2}]^T$\\
 
-possiamo allora scrivere in forma matriciale,
+si può allora scrivere in forma matriciale,
 $A_h\boldsymbol{u} = \boldsymbol{b_h} + \boldsymbol{\tau_h}$
 dove $A_h = \frac{1}{h^2}
  tridiag(-1,2,-1) + diag(\sigma_1, ... ,\sigma_{N-1}) e \sigma_j = \sigma(x_j)$.\\
 \vspace{1em}
 Il metodo alle differenze finite consiste allora nel determinare un’approssimazione $u_h$ di
 u andando a risolvere il sistema lineare
-$A_hu_h = b_h.$
+$A_h\boldsymbol{u_h} = \boldsymbol{b_h}.$
 Osserviamo che $\boldsymbol{u_h}$ risulta ben definito in quanto $A_h$ è una matrice non singolare.\\
 
 \vspace{1em}
 
-Risultando che $\tau_h$ tende a zero quando h tende a zero, il metodo dicesi consistente. In particolare nel nostro caso, come osservato in partenza, risulta $\tau_h = O(h^2)$ .\\
+Risultando che $\boldsymbol{\tau_h}$ tende a zero quando h tende a zero, il metodo dicesi consistente. In particolare nel caso in analisi, come osservato in partenza, risulta $\boldsymbol{\tau_h} = O(h^2)$ .\\
 Tuttavia la consistenza non assicura da sola la convergenza del metodo.\\
-Per studiarne laconvergenza dobbiamo considerare il comportamento dell’errore $\boldsymbol{e_h} = \boldsymbol{u_h} -\boldsymbol{u}$ quando h tende a zero. Dato che risulta $A_h\boldsymbol{e_h} = \boldsymbol{\tau_h}$, e quindi $\boldsymbol{e_h} = A_h^{-1} \boldsymbol{\tau_h}$ possiamo scrivere: $||\boldsymbol{e_h}||\geq ||A_h^{-1}|| |\boldsymbol{\tau_h}||$\\
-Vogliamo allora far vedere che, lavorando in norma infinito, siamo in grado di trovare una costante che, per ogni $h$, maggiora $||A_h^{-1}||$. \\
-A questo scopo osserviamo che si può dimostrare che sia $A_h$ che la matrice $A_{0h} = \frac{1}{h^2} tridiag(-1,2,-1)$ hanno inversa non negativa, e si ha: 
+Per studiarne laconvergenza è necessario considerare il comportamento dell’errore $\boldsymbol{e_h} = \boldsymbol{u_h} -\boldsymbol{u}$ quando h tende a zero. Dato che risulta $A_h\boldsymbol{e_h} = \boldsymbol{\tau_h}$, e quindi $\boldsymbol{e_h} = A_h^{-1} \boldsymbol{\tau_h}$ si può quindi scrivere: $||\boldsymbol{e_h}||\geq ||A_h^{-1}|| |\boldsymbol{\tau_h}||$\\
+Il passaggio successiovo è far vedere che, lavorando in norma infinito, si è in grado di trovare una costante che, per ogni $h$, maggiora $||A_h^{-1}||$. \\
+A questo scopo osservando che si può dimostrare che sia $A_h$ che la matrice $A_{0h} = \frac{1}{h^2} tridiag(-1,2,-1)$ hanno inversa non negativa, e si ha: 
 
 $$A_{0h}^{-1}-A{h}^{-1}=A_{0h}^{-1}(A_h-A_{0h})A_h^{-1}\geq0$$
 
 Per le ipotesi su $\sigma$ questo implica $A_h^{-1}||\leq A_{0h}^{-1}||$
 osserviamo che
 $||A_{0h}^{-1}||=max_j(A_{0h}^{-1}\boldsymbol{e})_j$ dove $\boldsymbol{e}$ indica il vettore di tutti 1.\\
-Osservando che la soluzione esatta del problema $-u'' = 1, u(0) = u(1) = 0$, è il polinomio di secondo grado $\phi(x) = \frac{x(1-x)}{2}$, possiamo concludere che $A_{0h}^{-1}\boldsymbol{e})_j=\phi(x_j)$ e quindi che $A_h^{-1}||\leq A_{0h}^{-1}||\leq max_{0<x<1}|\phi_x|$.\\
-Questo risultato di stabilità ci permette di concludere che l’errore $e_h$ ha lo stesso ordine dell’errore di troncamento $\boldsymbol{\tau_h}$ e di conseguenza che il metodo è convergente del secondo ordine.
+Osservando che la soluzione esatta del problema $-u'' = 1, u(0) = u(1) = 0$, è il polinomio di secondo grado $\phi(x) = \frac{x(1-x)}{2}$, si può concludere che $A_{0h}^{-1}\boldsymbol{e})_j=\phi(x_j)$ e quindi che $A_h^{-1}||\leq A_{0h}^{-1}||\leq max_{0<x<1}|\phi_x|$.\\
+Questo risultato di stabilità ci permette di concludere che l’errore $\boldsymbol{e_h}$ ha lo stesso ordine dell’errore di troncamento $\boldsymbol{\tau_h}$ e di conseguenza che il metodo è convergente del secondo ordine.
 Si noti che l’uniforme limitatezza della norma di $A_h^{-1}$ implica che il metodo numerico sia stabile 
 
 
@@ -157,7 +168,7 @@ Si noti che l’uniforme limitatezza della norma di $A_h^{-1}$ implica che il me
 
 \raggedright
 
-Prendiamo in esame l'equazione del calore
+Il metodo delle differenze finite sarà impiegato in uno script MATLAB per l'implementazione dell'equazione del calore, è bene quindi prenderla in esame.
 
 \begin{equation} 
 \begin{cases}
@@ -169,16 +180,16 @@ u(0,x) = u_0(x)\ . \\
 \end{cases}
 \end{equation}
 
-L'equazione del calore, come intuibile dal nome che porta, è stata formulata per determinare l'evoluzione di un sistema isolato che presenta al suo interno una data distribuzione di calore. E' banale pensare che con il passare del tempo il calore si distribuisca, tendendo per un tempo infinito ad una distribuzione uniforme.
+L'equazione del calore, come intuibile dal nome che porta, è stata formulata per determinare l'evoluzione di un sistema isolato che presenta al suo interno una data distribuzione di calore. \`E banale pensare che con il passare del tempo il calore si distribuisca, tendendo per un tempo infinito ad una distribuzione uniforme.
 
 \vspace{1em}
 
-Euristicamente, non è difficile pensare che possiamo codificare (pensando ad un'immagine in bianco e nero) i pixel più luminosi come punti "più caldi" e quelli più scuri come punti "più freddi" ed applicare così l'equazione del calore.\\
-Otteniamo quindi un'immagine sempre più "liscia", otteniamo di fatto una sfocatura, e per un numero di iterazioni idealmente infinito ci ritroveremmo con una distribuzione uniforme di colore, ossia una tinta unita.
+Euristicamente, non è difficile pensare che si possa codificare (pensando ad un'immagine in bianco e nero) i pixel più luminosi come punti "più caldi" e quelli più scuri come punti "più freddi" ed applicare così l'equazione del calore.\\
+Si ottiene quindi un'immagine sempre più "liscia", di fatto una sfocatura, e per un numero di iterazioni idealmente infinito si giungerebbe ad una distribuzione uniforme di colore, ossia una tinta unita.
 
 \vspace{1em}
 
-Vediamo con uno script matlab come opera nella pratica. \\
+Il seguente script MATLAB illustra come questo processo opera nella pratica.
 
 \begin{lstlisting}[language=MATLAB]
 Im=imread('parrot.jpeg');   %Apro l'immmagine
@@ -208,7 +219,7 @@ end
 
 \end{lstlisting}
 \vspace{1em}
-Provando a cambiare il tempo, ossia il numero di iterazioni, osserviamo come un maggior lasso di tempo produca immagini più sfocate. \\
+Provando a cambiare il tempo, ossia il numero di iterazioni, si può osservare come un maggior lasso di tempo produca immagini più sfocate.
 
 \begin{figure}[htb] 
 \centering
@@ -216,21 +227,22 @@ Provando a cambiare il tempo, ossia il numero di iterazioni, osserviamo come un 
 %\caption{Fiamme.}\label{fig:figura}
 %\qquad\qquad
 %\includegraphics[scale=0.03]{Pictures/canvas8x8.png}
-\caption{Effetti dell'eq del calore nel tempo.}\label{fig:figura}
+\caption{Effetti dell'equazione del calore nel tempo.}\label{fig:figura}
 \end{figure}
 
 
-Questo metodo però non è poi molto utile in generale, sì, il rumore viene eliminato o almeno ridotto ma si perdono importanti dettagli, esistono procedimenti come il metodo Perona-Malik che sono decisamente più utili. L'idea del metodo Perona-Malik è di applicare l'equazione del calore nelle regioni in cui il colore è più uniforme, così da preservarne i bordi\\
+Questo metodo però non è poi molto utile in generale, sì, il rumore viene eliminato o almeno ridotto ma si perdono importanti dettagli, esistono procedimenti come il metodo Perona-Malik che sono decisamente più utili.\\
+L'idea del metodo Perona-Malik è di applicare l'equazione del calore nelle regioni in cui il colore è più uniforme, così da preservarne i bordi
 
 
 \section{Rilevamento dei bordi}
 
 Operando una derivata in una data direzione, per il significato in sè di derivata, questa assume valori più elevati quando la variazione è elevata, e assume valori nulli quando non c'è variazione in quella direzione. Per questo motivo, applicata ad un' immagine, ne rileviamo i bordi!\\
-Presa una tinta unita la derivata sarà quindi nulla in ogni suo punto (è intuitivo, se un'immagine è una funzione che, date due coordinate restituisce un colore, allora una tinta unita è una funzione costante ed in quanto tale ha derivata nulla).\\
+Presa una tinta unita la derivata sarà quindi nulla in ogni suo punto (è intuitivo: se un'immagine è una funzione che, date due coordinate restituisce un colore, allora una tinta unita è una funzione costante ed in quanto tale ha derivata nulla).\\
 \vspace{1em}
-Operando una derivata seconda in una data direzione, per il significato in sè di derivata seconda, questa assume valori più elevati quando la concavità è più stretta, e assume valori pressocchè nulli quando non ci sono concavità (possiamo pensare alle concavità come a dei picchi o dei ventri, su di una immagine vuol dire chiazze di colore diverso).\\
+Operando una derivata seconda in una data direzione, per il significato in sè di derivata seconda, questa assume valori più elevati quando la concavità è più stretta, e assume valori pressocchè nulli quando non ci sono concavità (si può pensare alle concavità come a dei picchi o dei ventri, su di una immagine vuol dire chiazze di colore diverso).\\
 Presa una sfumatura di colore che varia in maniera lineare, la derivata seconda sarà nulla in ogni suo punto, la derivata prima sarà invece costante. 
-Scriviamo un piccolo script su MATLAB che ci mostri questo aspetto
+Si riporta un piccolo script su MATLAB che mette in evidenza questo aspetto.
 
 \begin{lstlisting}[language=MATLAB]
 %---Operazioni preliminari
@@ -269,17 +281,17 @@ title('h*(u_xx + u_yy)')
 \end{lstlisting}
 
 \vspace{6em}
-Vediamo con diverse immagini molto semplici se otteniamo i risultati attesi.\\
+Lo script permette di osservare come con diverse immagini molto semplici se otteniamo i risultati attesi.\\
 %\vspace{1em}
 
 \begin{figure}[htb] 
 \centering
 \includegraphics[scale=0.4, trim = 0 0 0 10.5cm, clip]{Pictures/Risultati/tinta unita bianco e nero derivate parziali.png}
 \includegraphics[scale=0.4, trim = 0 0 0 10.5cm, clip]{Pictures/Risultati/tinta unita derivate parziali.png}
-\caption{Derivate parxiali di una tinta unita.}\label{fig:figura}
+\caption{Derivate parziali di una tinta unita.}\label{fig:figura}
 \end{figure}
 
-Possiamo vedere come con un'immagine a tinta unita (che sia essa in bianco e nero o a colori) le derivate sono nulle, quindi lo saranno anche gradiente e laplaciano. Confermiamo inoltre che questi principi valgono sia a colori che in bianco e nero.\\
+Si può vedere come con un'immagine a tinta unita (che sia essa in bianco e nero o a colori) le derivate sono nulle, quindi lo saranno anche gradiente e laplaciano. Confermiamo inoltre che questi principi valgono sia a colori che in bianco e nero.\\
 
 \newpage
 \begin{figure}[htb] 
@@ -301,14 +313,14 @@ Il fatto che in entrambi questi esempi il laplaciano sia nullo è un buon segno,
 \caption{Derivate parziali, gradiente e laplaciano di una sfumatura diagonale.}\label{fig:figura}
 \end{figure}
 
-Se prendiamo una sfumatura diagonale ma solo su metà immagine vediamo dei riultati interessanti: entrambe le derivate parziali sono nulle nelle regioni in cui non c'è sfumatura, esattamente come nel caso della tinta unita, ed entrambe sono costanti dove c'è sfumatura (che ricordiamo essere lineare).\\
-Tutto ciò riconferma quanto visto dai punti precedenti, decidiamo quindi di volgere uno sguardo al gradiente ed al laplaciano e noteremo qualcosa di interessante, il gradiente ha un aspetto molto simile alle due derivate parziali, sommando i loro valori è semplicemente più luminoso.\\
+Presa una sfumatura diagonale ma solo su metà immagine vediamo dei riultati interessanti: entrambe le derivate parziali sono nulle nelle regioni in cui non c'è sfumatura, esattamente come nel caso della tinta unita, ed entrambe sono costanti dove c'è sfumatura (che ricordiamo essere lineare).\\
+Tutto ciò riconferma quanto visto dai punti precedenti, volgendo quindi uno sguardo al gradiente ed al laplaciano e noteremo qualcosa di interessante, il gradiente ha un aspetto molto simile alle due derivate parziali, sommando i loro valori è semplicemente più luminoso.\\
 Per quanto riguarda il gradiente la storia cambia. Le derivate seconde sono indicatrici della variazione delle derivate prime, cioè della variazione della variazione del valore della funzione, ma l'unica variazione che hanno le derivate prime è lungo la diagonale.
 Abbiamo così individuato il nostro primo bordo, cioè la diagonale che divide di fatto due regioni, una in cui il colore è costante ed una in cui sfuma.\\
 
 \vspace{1em}
 
-Facciamo ancora un esempio, proviamo ad introdurre una semplice figura e vediamo cosa accade.\\
+riportiamo un ultimo esempio, provando ad introdurre una semplice figura e osserviamo cosa accade.\\
 
 \newpage
 \begin{figure}[htb] 
@@ -318,8 +330,8 @@ Facciamo ancora un esempio, proviamo ad introdurre una semplice figura e vediamo
 \caption{Derivate parziali, gradiente e laplaciano di una figura semplice.}\label{fig:figura}
 \end{figure}
 
-Abbiamo importato un rettangolo nero su di uno sfondo bianco, come confermato anche dalla prima sfumatura, la derivata lungo x rileva i bordi verticali, quella lungo y i bordi orizzontali, dalla loro somma (quindi dal gradiente) otteniamo già il bordo del rettangolo.
-Il bordo così ottenuto è un bordo che idealmente rimarrà inalterato a prescindere dall'ordine della derivata, in particolare quindi anche per derivate seconde, quindi il laplaciano continua a soddisfare la nostra richiesta di determinare i bordi. \\
-Come detto: "Il bordo così ottenuto è un bordo che idealmente rimarrà inalterato a prescindere dall'ordine della derivata" cerchiamo di capire perchè. Presa una striscia di pixel, cioè uno strato della nostra immagine (immaginiamola quindi come una funzione da R in R), otterremo quindi una funzione porta!\\
+Importando un rettangolo nero su di uno sfondo bianco, come confermato anche dalla prima sfumatura, la derivata lungo x rileva i bordi verticali, quella lungo y i bordi orizzontali, dalla loro somma (quindi dal gradiente) otteniamo già il bordo del rettangolo.
+Il bordo così ottenuto è un bordo che idealmente rimarrà inalterato a prescindere dall'ordine della derivata, in particolare quindi anche per derivate seconde, quindi il laplaciano continua a soddisfare la richiesta di determinare i bordi. \\
+Come detto: "Il bordo così ottenuto è un bordo che idealmente rimarrà inalterato a prescindere dall'ordine della derivata" è interessante capire perchè. Presa una striscia di pixel, cioè uno strato dell'immagine (la si può immaginare quindi come una funzione da R in R), risulterà essa raffigurare una funzione porta!\\
 La funzione porta non è derivabile in senso classico, ripensando alla definizione di derivata avremmo un valore di +infinito prima e -infinito poi. La sua derivata sarà quindi una coppia di delta di Dirac\\
 
