@@ -5,8 +5,8 @@
 Al giorno d'oggi i computer permettono una vasta gamma di elaborazioni digitali, ce ne sono alcuni, più semplici ma di notevole interesse, ormai già perfezionati ed altri che sono ancora oggetto di studio.
 
 \section{Rotazioni, riflessioni,etc}
-Le più semplici in assoluto riguardano "movimenti rigidi" come la traslazione o la rotazione, o anche omeomorfismi come la riflessione. Questi sono molto utili per introdurre i primi concetti matematici, come l'impiego di matrici.\\
-Definiamo una matrice di trasformazione che moltiplicata per un vettore di coordinate ci restituisca un altro vettore di coordinate. Questo vuol dire che quel punto va spostato dalle coordinate in cui si trovava a quelle appena calcolate. Ad esempio:
+Le trasformazioni più semplici in assoluto riguardano movimenti rigidi come la \textbf{traslazione} o la \textbf{rotazione}, o anche omeomorfismi come la \textbf{riflessione}. Questi sono molto utili per introdurre i primi concetti matematici, come l'impiego di matrici.\\
+Definiamo una \textbf{matrice di trasformazione} che moltiplicata per un vettore di coordinate ci restituisca un altro vettore di coordinate. Questo vuol dire che quel punto va spostato dalle coordinate in cui si trovava a quelle appena calcolate. Ad esempio:
 
 $$
 {\begin{bmatrix}
@@ -35,7 +35,7 @@ x\\y\\1
 $$	
 
 \vspace{1em} \noindent
-Cioè ogni punto rimane alla stessa quota ma cambia la propria x con -x, che è esattamente ciò che intendiamo per riflessione lungo l'asse verticale.
+Cioè ogni punto rimane alla stessa quota ma cambia la propria x con -x, che è esattamente ciò che si intende per riflessione lungo l'asse verticale.
 
 \newpage \noindent 
 Altri esempi possono essere:
@@ -66,20 +66,20 @@ Altri esempi possono essere:
 
 
 \section{Cambio prospettiva}
-Una delle trasformazioni più semplici è quella del cambio prospettiva. Una volta compresa questa trasformazione si è fatto anche un primo passo per parlare di warping, di cui parleremo più avanti.
+Una delle trasformazioni più semplici è quella del cambio prospettiva. Una volta compresa questa trasformazione si è fatto anche un primo passo per parlare di warping, che sarà trattato più avanti.
 
 \vspace{1em} \noindent
-Supponiamo di avere la foto di un documento poggiato su una scrivania e di volerla migliorare in modo da estrarne solo il documento e che i suoi bordi concidano quindi con i bordi dell'immagine.
+Un esempio pratico può essere: si ha la foto di un documento poggiato su una scrivania e la si vuole migliorare in modo da estrarne solo il documento e che i suoi bordi concidano quindi con i bordi dell'immagine.
 
 \vspace{1em} \noindent
-In genere la cosa più semplice ed affidabile è quella di far scegliere i 4 angoli del documento ad un utente. Volendo automatizzare il processo possiamo però scegliere un'altra strada: ossia estrarre i bordi dell'immagine e cercare tra questi quelli che formano un trapezio, presumibilmente quello sarà il documento.
+In genere la cosa più semplice ed affidabile è quella di far scegliere i 4 angoli del documento ad un utente. Volendo automatizzare il processo si può però scegliere un'altra strada, ossia estrarre i bordi dell'immagine e cercare tra questi quelli che formano un trapezio; presumibilmente quello sarà il documento.
 
 \vspace{1em} \noindent
-Ottenuti i 4 angoli, calcoliamo la lunghezza e la larghezza della nostra nuova immagine. Per fare ciò iniziamo con il calcolare la lunghezza dei 4 lati, questi li otterremo banalmente con il teorema di Pitagora. A questo punto prendiamo i lati a due a due non adiacenti, cioè che non hanno vertici in comune e ne confrontiamo le lunghezze.\\
-Per ogni coppia prendiamo la lunghezza maggiore (si può anche usare quella minore ma non dilunghiamoci su questa scelta).
+Ottenuti i 4 angoli, occorre calcolare la lunghezza e la larghezza della nuova immagine. Per fare ciò si può calcolare la lunghezza dei 4 lati banalmente con il teorema di Pitagora. A questo punto, presi i lati a due a due non adiacenti, cioè che non hanno vertici in comune, ne si confrontano le lunghezze.\\
+Per ogni coppia si adotta la lunghezza maggiore (si può anche usare quella minore ma è una scelta di scarso interesse per lo studio in atto).
 
-\vspace{1em} \noindent
-Ora siamo in grado di calcolare la matrice di trasformazione. Essa sarà del tipo:
+\vspace{30em} \noindent
+Ottenuti questi dati si può calcolare la matrice di trasformazione. Essa sarà del tipo:
 
 \begin{align*}
 &\begin{bmatrix}
@@ -110,27 +110,27 @@ c_1&c_2
 \vspace{-3em}
 
 \begin{align*}
-&\text{L'intento è che moltiplicando tale matrice per il vettore  }
+&\text{L'intento è che, moltiplicando tale matrice per il vettore  }
 \begin{bmatrix}
 \text{coordinata x}\\
 \text{coordinata y}\\
 1
 \end{bmatrix}
-\text{ otterremo il vettore}\\
+\text{, si ottiene il vettore}\\
 &\begin{bmatrix}
 \text{nuova coordinata x*k}\\
 \text{nuova coordinata y*k}\\
 k
 \end{bmatrix}
-\text{ eseguendo questa operazione per tutti i punti, costruiamo l'immagine}\\
-&\text{desiderata.}
+\text{ eseguendo questa operazione per tutti i punti, Si costruisce }\\
+&\text{l'immagine desiderata.}
 \end{align*}
 
 \section{Morphing}
-Il morphing è uno dei primi effetti digitali sviluppati dall'industria cinematografica e consiste nella trasformazione fluida, graduale e senza soluzione di continuità tra due immagini di forma diversa, che possono essere oggetti, persone, volti, paesaggi.
+Il morphing consiste nella trasformazione fluida, graduale tra due immagini di forma diversa, raffiguranti oggetti, persone, volti, paesaggi.
 
 \vspace{1em} \noindent
-Il morphing non è altro che l'uso in contemporanea di una dissolvenza incrociata e di un effetto di deformazione chiamato warping (termine inglese che significa appunto deformazione).
+Il morphing è quindi una tecnica che combia l'uso in contemporanea di una dissolvenza incrociata e di un effetto di deformazione chiamato \textbf{warping} (termine inglese che significa appunto deformazione).
 
 \vspace{1em} \noindent
 Per operare il warping si definiscono sull'immagine di partenza dei "punti chiave" che possono essere uniti tra di loro con delle linee e si definiscono sull'immagine di destinazione i corrispondenti punti e di conseguenza le corrispondenti linee.\\ 
@@ -140,4 +140,4 @@ Per operare il warping si definiscono sull'immagine di partenza dei "punti chiav
 \end{figure}
 
 \noindent
-Durante la dissolvenza dall'immagine iniziale a quella finale, le immagini vengono deformate facendo in modo che ciascun punto chiave si muova lungo il percorso che porta dalla sua posizione nell'immagine di partenza alla posizione del corrispondente punto nell'immagine di arrivo.\\
+Durante la dissolvenza dall'immagine iniziale a quella finale, le immagini vengono deformate facendo in modo che ciascun punto chiave si muova lungo il percorso che porta dalla sua posizione nell'immagine di partenza alla posizione del corrispondente punto nell'immagine di arrivo.
