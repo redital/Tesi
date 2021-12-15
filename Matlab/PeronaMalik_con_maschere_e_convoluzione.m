@@ -14,7 +14,7 @@ img=ones(255);                          %creo l'immagine
 im=uint8(img);
 im = imnoise(im,'salt & pepper',0.02);  %Aggiungo del rumore
 
-figure('Name','Original picture');      %stampo l'immagine rumorosa
+figure('Name','Original picture');      %Stampa dell'immagine rumorosa
 imshow(im);
 
 num_iter=70;                            %numero di iterazioni
@@ -72,8 +72,9 @@ for t = 1:num_iter
     % Soluzione discreta della PDE.
     diff_im = diff_im + delta_t*(cN.*nablaN + cS.*nablaS + cW.*nablaW + cE.*nablaE );
            
-    
+    % Stampa di controllo
     fprintf('\rIteration %d\n',t);
 end
+% Stampa dei risultati
 figure('Name','Perona Malik');
 imshow(uint8(diff_im));
