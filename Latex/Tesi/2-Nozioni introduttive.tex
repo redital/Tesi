@@ -62,7 +62,17 @@ u(x)=\frac{1}{w(x)}\int\int d(x-\xi)\Tilde{d}(u_0(x) -u_0(\xi))u_0(\xi)d\xi.
 
 \raggedright
 
+In matematica, la \textbf{convoluzione} è un'operazione tra due funzioni di una variabile che consiste nell'integrare il prodotto tra la prima e la seconda traslata di un certo valore.
+
 E questo è a tutti gli effetti un filtro. Il problema adesso è far eseguire questi calcoli ad un calcolatore, il quale non è in grado di lavorare con oggetti continui e richiede quindi di alcune approssimazioni per "discretizzare" il problema.
+
+A tal proposito la definizione di convoluzione può facilmente essere discretizzata parlando di successioni anzichè di funzioni ed operando una sommatoria invece di un integrale.
+
+$$
+(f*g)[n]\ {\stackrel {{\mathrm {def}}}{=}}\ \sum _{{m=-\infty }}^{\infty }f[m]\,g[n-m]=\sum _{{m=-\infty }}^{\infty }f[n-m]\,g[m].
+$$
+
+Altri metodi ed approssimazioni saranno poi approfonditi durante la trattazione del problema
 
 %Definiti questi concetti siamo pronti ad iniziare la trattazione vera e propria
 

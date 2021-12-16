@@ -337,3 +337,13 @@ Il bordo così ottenuto è un bordo che idealmente rimarrà inalterato a prescin
 Come detto: "Il bordo così ottenuto è un bordo che idealmente rimarrà inalterato a prescindere dall'ordine della derivata" è interessante capire perchè. Presa una striscia di pixel, cioè uno strato dell'immagine (la si può immaginare quindi come una funzione da R in R), risulterà essa raffigurare una funzione porta!\\
 La funzione porta non è derivabile in senso classico, ripensando alla definizione di derivata avremmo un valore di +infinito prima e -infinito poi. La sua derivata sarà quindi una coppia di delta di Dirac.\\
 
+\newpage
+\begin{figure}   
+\centering
+\includegraphics[scale=0.4, trim = 0 0 0 10.5cm, clip]{Pictures/Risultati/rettangolo bianco e nero derivate parziali con rumore.png}
+\includegraphics[scale=0.4, trim = 0 0 0 10.5cm, clip]{Pictures/Risultati/rettangolo bianco e nero gradiente e laplaciano con rumore.png}
+\caption{Derivate parziali, gradiente e laplaciano di una figura semplice con rumore.}\label{fig:figura}
+\end{figure}
+
+Si può fare una considerazione: quando si trova un elemento di disurbo, come un puntino o una chiazza di colore, questo risulterà essere una forte variazione di colore improvvisa ed in quanto tale avrà derivata tutt'altro che nulla!
+In tal caso il gradiente ne rileverà i bordi e il metodo Perona-Malik non lo toccherà, questa cosa non va bene: è un elemento di disturbo e va quindi eliminato!\\ Una posssibile soluzione a questo broblema verrà illustrata nella trattazione del metodo Perona-Malik.
