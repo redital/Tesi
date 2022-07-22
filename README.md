@@ -25,5 +25,5 @@ finite per l’approssimazione delle derivate parziali con relativa analisi dell
 l’equazione del calore e che verrà poi opportunamente modificato per implementare il metodo
 Perona-Malik.
 
-####Esempio di utilizzo
+#### Esempio di utilizzo
 ![disegno_risultati](https://user-images.githubusercontent.com/86683344/180495278-9b721e9b-a676-43db-ba63-c69fdcbc0958.png)
