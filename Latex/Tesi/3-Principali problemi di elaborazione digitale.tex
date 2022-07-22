@@ -1,12 +1,12 @@
-\chapter{Principali problemi di elaborazione digitale}
-
-%\section{Principali problemi di elaborazione digitale}
+%\newpage
+\section{Principali problemi di elaborazione digitale}
 
 Al giorno d'oggi i computer permettono una vasta gamma di elaborazioni digitali, ce ne sono alcuni, più semplici ma di notevole interesse, ormai già perfezionati ed altri che sono ancora oggetto di studio.
 
-\section{Rotazioni, riflessioni,etc}
+\subsection{Rotazioni, riflessioni,etc}
+\cite{storia}
 Le trasformazioni più semplici in assoluto riguardano movimenti rigidi come la \textbf{traslazione} o la \textbf{rotazione}, o anche omeomorfismi come la \textbf{riflessione}. Questi sono molto utili per introdurre i primi concetti matematici, come l'impiego di matrici.\\
-Definiamo una \textbf{matrice di trasformazione} che moltiplicata per un vettore di coordinate ci restituisca un altro vettore di coordinate. Questo vuol dire che quel punto va spostato dalle coordinate in cui si trovava a quelle appena calcolate. Ad esempio:
+Definiamo una \textbf{matrice di trasformazione} che moltiplicata per un vettore di coordinate ci restituisca un altro vettore di coordinate. Questo vuol dire che quel punto va spostato dalle coordinate in cui si trovava a quelle appena calcolate. Ad esempio:\\
 
 $$
 {\begin{bmatrix}
@@ -16,7 +16,7 @@ $$
 \end{bmatrix}}
 $$
 
-\noindent
+
 \`E una matrice di riflessione lungo l'asse verticale, infatti: 
 
 $$
@@ -37,7 +37,7 @@ $$
 \vspace{1em} \noindent
 Cioè ogni punto rimane alla stessa quota ma cambia la propria x con -x, che è esattamente ciò che si intende per riflessione lungo l'asse verticale.
 
-\newpage \noindent 
+\noindent 
 Altri esempi possono essere:
 
 \begin{align*}
@@ -65,7 +65,7 @@ Altri esempi possono essere:
 
 
 
-\section{Cambio prospettiva}
+\subsection{Cambio prospettiva}
 Una delle trasformazioni più semplici è quella del cambio prospettiva. Una volta compresa questa trasformazione si è fatto anche un primo passo per parlare di warping, che sarà trattato più avanti.
 
 \vspace{1em} \noindent
@@ -126,14 +126,14 @@ k
 &\text{l'immagine desiderata.}
 \end{align*}
 
-\section{Morphing}
+\subsection{Morphing}
 Il morphing consiste nella trasformazione fluida, graduale tra due immagini di forma diversa, raffiguranti oggetti, persone, volti, paesaggi.
 
 \vspace{1em} \noindent
 Il morphing è quindi una tecnica che combia l'uso in contemporanea di una dissolvenza incrociata e di un effetto di deformazione chiamato \textbf{warping} (termine inglese che significa appunto deformazione).
 
 \vspace{1em} \noindent
-Per operare il warping si definiscono sull'immagine di partenza dei "punti chiave" che possono essere uniti tra di loro con delle linee e si definiscono sull'immagine di destinazione i corrispondenti punti e di conseguenza le corrispondenti linee.\\ 
+Per operare il warping si definiscono sull'immagine di partenza dei \textit{"punti chiave"} che possono essere uniti tra di loro con delle linee e si definiscono sull'immagine di destinazione i corrispondenti punti e di conseguenza le corrispondenti linee.\\ 
 \begin{figure}[htb] \centering
 \includegraphics[scale=0.5, trim = 0 1.1cm 0 0, clip]{Pictures/Striscia_morphing.jpg}
 \caption{Processo di morphing con alcuni risultati intermedi.}\label{fig:figura}

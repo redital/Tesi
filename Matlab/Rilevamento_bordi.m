@@ -1,3 +1,10 @@
+%Funzione creata per lo studio del rilevamento dei bordi. Supporta alcune
+%immagini semplici che possono essere generate da matlab, oppure si può
+%caricare un'immagine presente nella stessa cartella dello script
+%passandone il nome o il percorso.
+%Vengono stampati i risultati in due figure riportanti derivate parziali,
+%gradiente e laplaciano.
+
 function [] = Rilevamento_bordi(nome,gray)
 
 %Apro l'immmagine
@@ -15,20 +22,21 @@ elseif strcmp(nome, 'sfumatura diagonale.png')
     end
     Im=uint8(img);
 elseif strcmp(nome, 'phantom.png')
-    img=phantom(255);
-    Im=img;
+    img=256*phantom();
+    Im=uint8(img);
 elseif strcmp(nome, 'rettangolo.png')
     img=ones(255);
     for i=80:160
         img(140:180,i)=255;
     end
     Im=uint8(img);
+    Im = imnoise(Im,'salt & pepper',0.02)
+
 else
     Im=imread(nome);
-end
-
-if gray
-    Im=rgb2gray(Im);
+    if gray
+        Im=rgb2gray(Im);
+    end
 end
 
 
@@ -36,14 +44,14 @@ end
 [ny, nx, ~]=size(Im)        %Dimensioni dell'immagine
 u=double(Im);               %Copia dell'immagine originale su cui lavorare
 
-h=80;                       %Definisco un parametro che userò per enfatizzare i bordi in fase di stampa 
+h=8;                        %Definisco un parametro che userò per enfatizzare i bordi in fase di stampa 
 
 %---Calcolo tutte le derivate
-u_x =  u(:,[1 1:nx-1],:) - u;                       % finite difference approximation for u_x cioè questa è una derivata prima lungo x
-u_xx = u(:,[2:nx nx],:) - 2*u + u(:,[1 1:nx-1],:);  % finite difference approximation for u_xx cioè questa è una derivata seconda lungo x
-u_y =  u([1 1:ny-1],:,:) - u;                       % finite difference approximation for u_y cioè questa è una derivata prima lungo y
-u_yy = u([2:ny ny],:,:) - 2*u + u([1 1:ny-1],:,:);  % finite difference approximation for u_yy cioè questa è una derivata seconda lungo y
-u_xy = u_x([1 1:ny-1],:,:) - u_x;                   % finite difference approximation for u_xy cioè questa è una derivata seconda mista
+u_x =  u(:,[1 1:nx-1],:) - u;                       % derivata prima lungo x
+u_xx = u(:,[2:nx nx],:) - 2*u + u(:,[1 1:nx-1],:);  % derivata seconda lungo x
+u_y =  u([1 1:ny-1],:,:) - u;                       % derivata prima lungo y
+u_yy = u([2:ny ny],:,:) - 2*u + u([1 1:ny-1],:,:);  % derivata seconda lungo y
+u_xy = u_x([1 1:ny-1],:,:) - u_x;                   % derivata seconda mista
    
 %Stampo i risultati
 figure()
@@ -62,6 +70,6 @@ title("Immagine originale")
 subplot(2,3,5), imshow(uint8(h*(abs(u_x) + abs(u_y))))
 title("h*(u_x + u_y)")
 subplot(2,3,6), imshow(uint8(h*(abs(u_xx) + abs(u_yy))))
-title("h*(u_xx + u_yy)")
+title("h*(u_{xx} + u_{yy})")
 
 end

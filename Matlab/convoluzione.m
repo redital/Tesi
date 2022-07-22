@@ -1,3 +1,10 @@
+%Questa funzione serve ad operare una convoluzione bidimensionale nella
+%fattispecie è stata scritta per ossere operata per il filtraggio di
+%immagini. Essa prende in input un'immagine A e una maschera di
+%convoluzione k. 
+%Funziona solo per immagini in bianco e nero, per immagini a colori dare in
+%input alla funzione i singoli canali per poi riunirli successivamente.
+
 function B=convoluzione(A,k);
 
 [r c] = size(A);                                %Memorizzo le dimensioni dell'immagine
