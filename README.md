@@ -1,26 +1,29 @@
-# Filtraggio di immagini
+# Filtraggio di immagini (Equazione del calore e metodo Perona-Malik)
 Tesi di Lurea (Laurea di primo livello in Matematica per l'ingegneria al Politecnico di Torino) sul filtraggio di immagini.
 
 Il repository è diviso in due sezioni:
 - Latex contenente per l'appunto il codice Latex e il pdf risultante che costituisce l'effettiva tesi
-- MATLAB contenente i codici matlab utilizzati per scrivere la tesi e due immagini utilizzate dagli stessi
+- MATLAB contenente i codici matlab tramite i quali si sono implementati i metodi o si sono testati alcuni aspetti preliminari (come il rilevamento dei bodi)
 
-## Latex
-La cartella contiene il file toptesi_template.tex che è il file principale, che richiama a tutti gli altri file ed è così chiamato perchè ottenuto modificando il template fornito dal Politecnico di torino, il file title.tex, anch'esso facente parte del template. 
-Contiene inoltre il file toptesi_template.pdf che è il risultato di esportazione del codice Latex e costituisce quindi l'effettiva tesi e le cartelle Tesi e Pictures oltre ad una serie di altri file generati automaticamente compilando toptesi_template.tex.
-### Tesi 
-La cartella contiene un file per ogni capitolo della tesi, essi sono:
-- 0-Sommario
-- 1-Storia del filtraggio
-- 2-Nozioni introduttive
-- 3-Principali problemi di elaborazione digitale
-- 4-Equazione del calore e metodo Perona-Malik
-- 5-Metodo Perona-Malik
-### Pictures
-La cartella contiene, come intuibile dal nome delle immagini utili incluse nella tesi, esse sono:
-- Il logo del Politecnico di Torino, per il frontespizio, sia la nuova che la vecchia versione nel caso si voglia cambiare.
-- "In ricordo del pinguino cameriere": un'immagine realizzata tempo fa dal sottoscritto, qui utilizzata come immagine esempio. *#PiùArteSulleTesiDiLaurea*
-- Altre due copie de "In ricordo del pinguino cameriere" ma molto pixelate.
-- La foto di un nastro codificante un'immagine nel sistema via cavo Barlane.
-- Due foto trasmesse e stampate tramite il sistema via cavo Barlane.
-- Un accostamento di cinque immagini esempio illustranti il processo di Morphing dal presidente Bush ad Arnold Schwarzenegger.
+**Per leggere il testo integrale vedere il file toptesi_template.pdf nella cartella Latex**
+
+## Sommario
+Le immagini sono da sempre state fondamentali per l’uomo, che sin dai primi tempi le ha utilizzate per ricordare, illustrare, comunicare, etc. Per questo motivo, cercare di sfruttarle nel migliore
+dei modi è oggigiorno un problema di grande interesse. Molteplici sono i metodi di elaborazione digitali detti "di filtraggio", il cui scopo è modificare l’immagine, estraendone elementi,
+nascondendoli o facendoli risaltare, così da migliorarla per renderla quanto più utile possibile
+agli scopi richiesti.
+Durante questa trattazione, dopo una breve introduzione volta a fornire una visione d’insieme
+del campo in esame (nel quale ci si sta introducendo), verrà illustrato il concetto di immagine
+digitale, di filtro e di equazioni alle derivate parziali, con particolare riguardo al ruolo fondamentale che queste ultime giocano nella scrittura dei filtri e la relativa implementazione all’interno
+del calcolatore.
+Nello specifico, nella parte introduttiva si parlerà della storia delle immagini digitali e del filtraggio analogico e digitale, dei principali problemi consequenziali e di alcune delle più semplici
+elaborazioni digitali. Verranno poi fornite alcune nozioni preliminari tra cui: il concetto di immagine come funzione matematica e quindi di immagine digitale, della relativa codifica, di pixel,
+del concetto di risoluzione ed altresì di quanto essa influisca sullo spazio di archiviazione. Successivamente saranno analizzati i filtri intesi come convoluzioni tra la funzione immagine e la
+funzione filtro.
+Infine la trattazione diventerà più specifica, presentando il fulcro di questo studio, ossia l’implementazione del metodo Perona-Malik; a sostegno di ciò verrà illustrato il metodo delle differenze
+finite per l’approssimazione delle derivate parziali con relativa analisi dell’errore di troncamento. Questo risultato sarà dunque sfruttato per la realizzazione di uno script MATLAB che operi
+l’equazione del calore e che verrà poi opportunamente modificato per implementare il metodo
+Perona-Malik.
+
+####Esempio di utilizzo
+![disegno_risultati](https://user-images.githubusercontent.com/86683344/180495278-9b721e9b-a676-43db-ba63-c69fdcbc0958.png)
