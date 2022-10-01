@@ -68,15 +68,21 @@
 \usepackage{dcolumn}
 \newcolumntype{d}{D{.}{.}{-1} } %to vetical align numbers in tables, along the decimal dot
 
-\usepackage{amsmath}
+%\usepackage{amsmath}
+\usepackage{amsmath,amsthm}
 
 \usepackage{natbib} % for the bibliography
 \bibliographystyle{plainnat}
 
 
 %%%%%%% Local definitions
-\newtheorem{osservazione}{Osservazione}% Standard LaTeX
-\newtheorem{observation}{Observation}% Standard LaTeX
+\theoremstyle{plain}
+\newtheorem{osservazione}{Osservazione}[section]% Standard LaTeX
+\newtheorem{teorema}{Teorema}[section]% Standard LaTeX
+\newtheorem{corollario}{corollario}[teorema]
+\newtheorem{lemma}{Lemma}[teorema]
+\newtheorem{proposizione}{Proposizione}[section]
+\newtheorem{definizione}{Definizione}[section]
 
 
 
@@ -95,7 +101,7 @@
 \ifclassica%
 \begin{dedica}
 
-    $\heartsuit$\ All'autrice di "Passi" %Alla mia regina
+    All'autrice di "Passi" $\heartsuit$\ %Alla mia regina
 \end{dedica}
 %%%%%%% 
 
@@ -111,9 +117,17 @@
 
 \ringraziamenti%acknowledgements
 %Acknowledge the people you love and/or work with
-I candidati ringraziano vivamente il Granduca di Toscana per i mezzi messi loro a disposizione, ed il signor Von Braun, assistente del prof.~Albert Einstein, per le informazioni riservate che egli ha gentilmente fornito loro, e per le utili discussioni che hanno permesso ai candidati di evitare di riscoprire l'acqua calda.
+%I candidati ringraziano vivamente il Granduca di Toscana per i mezzi messi loro a disposizione, ed il signor Von Braun, assistente del prof.~Albert Einstein, per le informazioni riservate che egli ha gentilmente fornito loro, e per le utili discussioni che hanno permesso ai candidati di evitare di riscoprire l'acqua calda.
 
-Questa parte è rimasta inalterata da com'era nel template.
+%Questa parte è rimasta inalterata da com'era nel template.
+Ringrazio vivamente il Politecnico di Torino con i suoi docenti e lavoratori per i servizi offerti nel corso di questi anni, ma sopratutto ringrazio la mia famiglia che mi ha sostenuto, permettendomi di vivere qui a Torino e di frequentare il Politecnico affinché io potessi vivere la miglior esperienza universitaria possibile.\\
+Ringrazio inoltre i miei coinquilini: Pierclaudio, con cui condivido il tetto fin da quando sono arrivato qui a Torino, prima in collegio, poi in Via san Paolo e tutt'ora in Corso Ferrucci, dove ho trovato Francesco e Mattia che nonostante lo scarso tempo da me trascorso in casa sono stati testimoni dei miei scleri riguardo la stesura delle pagine di questo elaborato e non solo.
+Ringrazio le persone che mi sono state vicine, in particolare Amira che mi ha sostenuto più di chiunque altro in questo ultimo anno, subendo le mie lamentele riguardo agli esami, incoraggiandomi e confortandomi quando le cose non sono andate come sperato. 
+Ringrazio le persone che mi sono state vicine fin dal mio arrivo a Torino: Francesco, Marco, Ginevra e poi Gigi, Michele, Nara, Enrica e Serena con cui ho condiviso tantissimo tempo, tanto in sala studio quanto al di fuori.
+Ringrazio chi c'è sempre stato, gli amici che ho lasciato al sud e che nonostante il tempo mi hanno sempre aspettato e riaccolto ad ogni mio ritorno, in particolare Luigi e l'amicizia che ci lega ormai da più di 10 anni, Giovanna con cui ho vissuto esperienze di ogni tipo e Silvana che fin da quando ci siamo conosciuti non mi ha abbandonato per un solo giorno e con cui ho il piacere di condividere il giorno della laurea, sebbene questo ci impedisca di partecipare l'uno alla proclamazione dell'altro.
+Ringrazio infine lo scoutismo ed il Torino 110 che mi ha accolto in questa città nuova per me e mi ha donato molti dei miei amici più cari e sopra citati.
+A tutti voi, grazie di cuore.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -128,20 +142,6 @@ Questa parte è rimasta inalterata da com'era nel template.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Citation
-%If you feel like a poetic guy!
-\ifclassica   
-\begin{citazioni}
-    \textit{If you cannot understand my\\argument, and declare}\\
-    it's Greek to me\\
-    \textit{you are quoting Shakespeare.}
-    
-    [\textsc{B. Levin}, Quoting Shakespeare]\vspace{1em}
-\end{citazioni}
-\fi
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \mainmatter
 
@@ -151,12 +151,12 @@ Questa parte è rimasta inalterata da com'era nel template.
 \input{./Tesi/2-Nozioni introduttive.tex}
 \input{./Tesi/3-Principali problemi di elaborazione digitale.tex}
 \newpage
-\chapter{Trattazione del problema}
+\chapter{Filtraggio digitale via Equazioni alle Derivate Parziali}
 \input{./Tesi/4-Eq del calore e metodo Perona-Malik.tex}
 \input{./Tesi/5-Metodo Perona-Malik.tex}
-\newpage
 \chapter{Esempi di utilizzo}
 \input{./Tesi/6-Esempi di utilizzo.tex}
+\input{./Tesi/7-Conclusioni.tex}
 
 
 \bibliography{references}
@@ -164,12 +164,4 @@ Questa parte è rimasta inalterata da com'era nel template.
 
 
 \end{document}
-
-\
-
-
-
-
-
-
 

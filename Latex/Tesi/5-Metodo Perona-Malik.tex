@@ -5,23 +5,27 @@ Il metodo Perona-Malik, come anticipato, si basa sull'equazione del calore. L'id
 Questo metodo risulta particolarmente efficace per risolvere problemi di disturbo come ad esempio un rumore del tipo salt and pepper, cioè con dei pixel bianchi o neri sparsi per la foto.\\
 \vspace{1em}
 \`E bene capire da un punto di vista prettamente matematico cosa vuol dire che il metodo si basa sull'equazione del calore, che ricordiamo essere:\\
-\begin{equation} 
+$$
 \begin{cases}
 \frac{\partial u}{\partial t}(t,x)-\Delta u(t,x) = 0 \ x \in \mathbb R^2, t\ge 0 \ .\\ 
 u(0,x) = u_0(x)\ . \\
 \end{cases}
-\end{equation}
+$$
 Il laplaciano è la divergenza del gradiente, ed è qui che viene operata la modifica.\\
-Come detto: $\Delta(u)=div(\nabla(u))$, volendo operare un controllo si introdurrà un coefficente c $div(c\nabla(u))$, nel caso esso sia uno scalare costante, avremo $div(c\nabla(u))=cdiv(\nabla(u))=c\Delta(u)$ ed è il caso implementato nelle pagine precendenti. Il metodo Perona-Malik invece prevede l'impego di un coefficiente c non costante, ma che cambi a seconda del pixel su cui si opera. In questo senso, questo filtro viene detto di diffusione anisotropa. Il termine anisotropo indica come la diffusione sia diversa nelle varie direzioni, capiamo quindi come questa notazione, per quanto esplicativa sia in verità un abuso di notazione siccome la diffusione non avviene in direzioni diverse ma semplicemente con intensità diverse. Esistono tuttavia dei metodi metodi di diffusione anisotropa, in tal caso c sarà un tensore variabile.\\
+Come detto: $\Delta(u)=div(\nabla(u))$, volendo operare un controllo si introdurrà un coefficiente $k$ ottenendo $div(k\nabla(u))$, nel caso esso sia uno scalare costante, avremo $div(k\nabla(u))=kdiv(\nabla(u))=k\Delta(u)$ ed è il caso implementato nelle pagine precedenti. Il metodo Perona-Malik invece prevede l'impiego di un coefficiente k non costante, ma che cambi a seconda del pixel su cui si opera, otteniamo così una matrice delle stesse dimensioni della matrice che rappresenta l'immagine e che funga da mappa, indicante per ogni pixel l'intensità con cui la diffusione va applicata. In questo senso, questo filtro viene detto di diffusione anisotropa.
+Il termine diffusione anisotropa indica, a livello globale, quella particolare proprietà secondo cui la diffusione del colore sull'immagine dipende fortemente dalla direzione presa in considerazione. Tuttavia è possibile constatare come questa dicitura sia in realtà un abuso di notazione di cui ci serviamo in termini prettamente esplicativi dal momento che il metodo in esame è localmente isotropo, si articola cioè lungo un’unica direzione variandone però l’intensità punto per punto.
+%Il termine anisotropo indica come la diffusione sia diversa nelle varie direzioni, capiamo quindi come questa notazione, per quanto esplicativa sia in verità un abuso di notazione siccome la diffusione non avviene in direzioni diverse ma semplicemente con intensità diverse.
+Esistono tuttavia dei metodi metodi di diffusione anisotropa, in tal caso k sarà un tensore variabile.\\
+\vspace{1em}
 Ritornando al metodo in esame, il problema affrontato diventa\\
-\begin{equation} 
+$$
 \begin{cases}
-\frac{\partial u}{\partial t}(t,x)-div(c\nabla(u)) = 0 \ x \in \mathbb R^2, t\ge 0 \ .\\ 
+\frac{\partial u}{\partial t}(t,x)-div(k\nabla(u)) = 0 \ x \in \mathbb R^2, t\ge 0 \ .\\ 
 \frac{\partial u}{\partial N}=0 \ x \in \mathbb R^2, t\ge 0 \ .\\ 
 u(0,x) = u_0(x)\ . \\
 \end{cases}
-\end{equation}
-Con c dipendente da dal gradiente, in particolare $c=c(|\nabla(u)|^2)$.
+$$
+Con k dipendente dal gradiente, in particolare $k=k(|\nabla(u)|^2)$.
 
 Servirà dunque esplicitare e discretizzare questo problema, per fare ciò saranno impiegati, oltre ai metodi già visti, altri accorgimenti.\\
 
@@ -34,18 +38,22 @@ $$
 Capiamo quindi che la differenza finita centrata è $D_c(x_i)=\frac{1}{2}(D_f(x_i)+D_b(x_i))$ cioè la media delle altre due.\\ Preso un punto si può operare le differenze finite nelle 4 direzioni, le indicheremo con N (Nord), S (Sud), W (Ovest) e E (Est). Notiamo allora che la differenza finita Nord è la differenza finita in avanti rispetto a y, mentre la differenza finita S è la differenza finita all'indietro rispetto a y, la loro media sarà quindi la differenza finita centrata rispetto a y. Analogamente la media delle differenze finite Ovest ed Est sarà la differenza finita centrata rispetto a x. In formule:\\
 %\vspace{-1em}
 $$
-\frac{\partial u}{\partial x} \approx \frac{u_E+u_w}{2} \hspace{1em};\hspace{1em}
+\frac{\partial u}{\partial x} \approx \frac{u_E+u_W}{2} \hspace{1em};\hspace{1em}
 \frac{\partial u}{\partial y} \approx \frac{u_N+u_S}{2}
 $$
 Ricordiamo che il gradiente è il vettore delle derivate parziali, la divergenza invece è la somma delle derivate parziali.
 Calcoliamo quindi un'approssimazione discreta della PDE\\
 %\vspace{-1em}
-\begin{align}
-    \frac{\partial u}{\partial t}(t,x)&=div(c\nabla(u))=\\
-    &=\frac{c\nabla u}{\partial x} +\frac{c\nabla u}{\partial y}\\
+
+
+\begin{align*}
+    \frac{\partial u}{\partial t}(t,x)&=div(k\nabla(u))=\\
+    &=\frac{k\nabla u}{\partial x} +\frac{k\nabla u}{\partial y}\\
     &\approx\frac{k_N\nabla_N + k_S\nabla_S}{2} +\frac{k_W\nabla_W + k_E\nabla_E}{2}\\
     &=\frac{1}{2}(k_N\nabla_N + k_S\nabla_S k_W\nabla_W + k_E\nabla_E) 
-\end{align}
+\end{align*}
+
+
 Ci si ritrova quindi a risolvere l'equazione 
 $$
 \frac{\partial u}{\partial t}(t,x)=\frac{1}{2}(k_N\nabla_N + k_S\nabla_S k_W\nabla_W + k_E\nabla_E) 
@@ -57,9 +65,9 @@ y'(x_i)\approx \frac{y(x_{i+1})-y(x_{i})}{\Delta t}
 $$
 ma $y'(x)=f(x,y(x))$ questo vuol dire che
 $$
-\frac{y(x_{i+1}-y(x_{i}}{\Delta t}\approx f(x,y(x)) \Leftarrow y_{i+1} = y_{i} + \Delta t f(x,y(x))
+\frac{y(x_{i+1})-y(x_{i})}{\Delta t}\approx f(x,y(x)) \Rightarrow y_{i+1} \approx y_{i} + \Delta t f(x,y(x))
 $$
-tale metodo è detto \textbf{metodo di Eulero esplicito}\cite{monegato}
+tale metodo è detto \textbf{metodo di Eulero esplicito}\footnote{\cite{monegato}}
 
 La soluzione discreta della PDE, con il metodo di Eulero esplicito, sarà quindi:\\
 
@@ -67,21 +75,25 @@ $$
 u_{i+1} = u_i + dt\frac{1}{2}(k_N\nabla_N + k_S\nabla_S + k_W\nabla_W + k_E\nabla_E)
 $$
 
-\subsubsection{Stabilità del metodo}
-Tramite il metodo di Von Neuman, in modo simile a quanto fatto per l'equazione del calore si\\
-\vspace{0.5em}
-dimostra che il metodo Perona-Malik risulta essere stabile $\Longleftrightarrow 4\frac{1}{2}\frac{\Delta t}{\Delta x^2}\leq\frac{1}{2}$.\\
-\vspace{0.5em}
+%\subsubsection{Stabilità del metodo}
+\begin{osservazione}
+Tramite il metodo di Von Neuman, in modo simile a quanto fatto per l'equazione del calore si
+dimostra che il metodo Perona-Malik risulta essere\\
+\vspace{0.25em}
+stabile $\Longleftrightarrow 4\frac{1}{2}\frac{dt}{\Delta x^2}\leq\frac{1}{2}$.\\
+\vspace{0.25em}
 Ricordiamo che nel caso in esame, ove $\Delta x=1$, la condizione diventa:
 $$
 dt\leq \frac{1}{4}.
 $$
-%\newpage
-%.
-\vspace{1em}
+\end{osservazione}
+
+
 \subsection{Maschere di convoluzione}
-Per implementare il filtro di diffusione anisotropica detto \textit{Perona-Malik}, ci serviremo dunque di alcune \textbf{maschere}.\\
-Un filtro è una funzione $F:\mathbb R^2\to\mathbb R$, in quanto tale avrà un nucleo $\operatorname{Ker}(F):=\{v \in \mathbb R^2: Av=0\}$ che sarà un polinomio a due incognite. Date in input a tale polinomio delle coordinate, questo restituirà un valore numerico, chiameremo tale coefficiente \textbf{peso}. Compiliamo quindi una maschera con i pesi calcolati in tal modo per ogni posizione ottenendo una cosa del tipo:
+Per implementare il filtro di diffusione anisotropica detto \textit{Perona-Malik}, ci serviremo di alcune \textbf{maschere}.\\
+Un filtro è una funzione $F:\mathbb R^2\to\mathbb R$,
+%in quanto tale avrà un nucleo $\operatorname{Ker}(F):=\{v \in \mathbb R^2: Fv=0\}$ che 
+in particolare è un polinomio a due incognite che, date in input delle coordinate restituirà un valore numerico, chiameremo tale coefficiente \textbf{peso}. Compiliamo quindi una maschera con i pesi calcolati in tal modo per ogni posizione ottenendo una cosa del tipo:
 
 \begin{figure}[]
     \centering
@@ -115,11 +127,11 @@ Un filtro è una funzione $F:\mathbb R^2\to\mathbb R$, in quanto tale avrà un n
     \caption{Esempio di maschera di convoluzione 3x3}
     \label{fig:my_label}
 \end{figure}
-Le dimensioni della maschera possono variare a discrezione del programmatore ma, solitamente si utilizzano maschere dimensioni piccole e dispari. Dispari perchè è importante individuare il centro della maschera. Piccole perchè l'utilizzo delle maschere porta degli effetti bordo che è bene limitare. queste motivazioni verranno meglio spiegate a breve.\\
+Le dimensioni della maschera possono variare a discrezione del programmatore ma, solitamente si utilizzano maschere dimensioni piccole e dispari. Dispari perchè è importante individuare il centro della maschera. Piccole perchè l'utilizzo delle maschere porta degli effetti bordo che è bene limitare. Queste motivazioni verranno meglio spiegate a breve.\\
 \vspace{1em}
 Come detto nelle nozioni introduttive, applicare un filtro vuol dire operare una convoluzione tra due funzioni: l'immagine ed il filtro stesso.\\
 Le maschere sono un utile strumento proprio per il calcolo delle convoluzioni, motivo per cui sono solitamente dette \textbf{maschere di convoluzione}.\\
-Per operare una convoluzione, detti $u:\mathbb R^2\to\mathbb R$ l'immagine e $F:\mathbb R^2\to\mathbb R$ il filtro, per definizione, $\forall p_{i,j}\in dom(u)$ si prende un intorno I(p), le cui dimensioni dipendono da quelle della maschera scelta per F. Successivamente si sommano i prodotti tra i valori di u e quelli di F, cioè i pesi della maschera, per ottenere in fine l'immagine filtrata.\\
+Per operare una convoluzione, detti $u:\mathbb R^2\to\mathbb R$ l'immagine e $F:\mathbb R^2\to\mathbb R$ il filtro, per definizione, $\forall p_{i,j}\in dom(u)$ si prende un intorno $I(p)$, le cui dimensioni dipendono da quelle della maschera scelta per F. Successivamente si sommano i prodotti tra i valori di u e quelli di F, cioè i pesi della maschera, per ottenere in fine l'immagine filtrata.\\
 \vspace{1em}
 In pratica, si scorre la maschera sui vari pixel dell'immagine\\
 \begin{figure}[h!]
@@ -192,7 +204,7 @@ Per ogni pixel ne viene ricalcolato il valore come segue
     \end{tabular}
     \small{
     $$
-    u(p_{i,j})*a=a_1p_{i-1,j+1} + a_2p_{i,j+1} + a_3p_{i+1,j+1} + a_4p_{i-1,j} + a_5p_{i,j} + a_6p_{i+1,j} + a_7p_{i-1,j-1} + a_8p_{i,j-1} + a_9p_{i+1,j-1}.
+    u(p_{i,j})*F=a_1p_{i-1,j+1} + a_2p_{i,j+1} + a_3p_{i+1,j+1} + a_4p_{i-1,j} + a_5p_{i,j} + a_6p_{i+1,j} + a_7p_{i-1,j-1} + a_8p_{i,j-1} + a_9p_{i+1,j-1}.
     $$
     }\\
 \caption{Intorno di un punto, maschera di convoluzione e soluzione analitica}
@@ -230,7 +242,7 @@ Ma allora una convoluzione con $a=$
         \hline
     \end{tabular}
 \vspace{0.5em}
-vuol dire fare la derivata prima approssimata alle differenze finite lungo y, in particolare verso l'alto, infatti facendo il conto di cui sopra si ottiene $u(p_{i,j})*a=p_{i,j+1}-p_{i,j}$ che è esattamente quanto trovato analizzando il metodo alle differenze finite
+vuol dire fare la derivata prima approssimata alle differenze finite lungo y, in particolare verso l'alto, infatti facendo il conto di cui sopra si ottiene $u(p_{i,j})*F=p_{i,j+1}-p_{i,j}$ che è esattamente quanto trovato analizzando il metodo alle differenze finite
 si può operare analogamente in tutte e 4 le direzioni.\\
 \vspace{1em}
 Per facilitare la successiva implementazione del filtro, si è scritta una funzione MATLAB che operi in tal senso.
@@ -277,16 +289,19 @@ Notare che \texttt{Rep} ha dimensioni maggiori rispetto all'immagine questo perc
 
 
 
-
-\subsection{Rilevamento dei bordi}
-
-Operando una derivata in una data direzione, per il significato in sè di derivata, questa assume valori più elevati quando la variazione è elevata, e assume valori nulli quando non c'è variazione in quella direzione. Per questo motivo, applicata ad un' immagine, ne rileviamo i bordi!\\
-Presa una tinta unita la derivata sarà quindi nulla in ogni suo punto (è intuitivo: se un'immagine è una funzione che, date due coordinate restituisce un colore, allora una tinta unita è una funzione costante ed in quanto tale ha derivata nulla).\\
-\vspace{1em}
-Operando una derivata seconda in una data direzione, per il significato in sè di derivata seconda, questa assume valori più elevati quando la concavità è più stretta, e assume valori pressocchè nulli quando non ci sono concavità (si può pensare alle concavità come a dei picchi o dei ventri, su di una immagine vuol dire chiazze di colore diverso).\\
-Presa una sfumatura di colore che varia in maniera lineare, la derivata seconda sarà nulla in ogni suo punto, la derivata prima sarà invece costante. 
 \newpage
-Si riporta un piccolo script MATLAB che mette in evidenza questo aspetto.
+\subsection{Rilevamento dei bordi}
+Il metodo Perona-Malik serve ad eliminare il rumore, preservando i bordi. Per essere in grado di preservarli però dobbiamo prima essere in grado di riconoscerli. Il metodo prevede l'introduzione del termine $K(\Delta(u))$ che dipende quindi dal laplaciano dell'immagine che si intende filtrare. Cerchiamo di capire il perché di questa scelta.\\
+\vspace{1em}
+Operando una derivata in una data direzione, per il significato in sè di derivata, questa assume valori più elevati quando la variazione è elevata, e assume valori nulli quando non c'è variazione in quella direzione. Per questo motivo, applicata ad un' immagine, ne rileviamo i bordi.\\
+Presa una tinta unita la derivata sarà quindi nulla in ogni suo punto (è intuitivo: se un'immagine è una funzione che, date due coordinate restituisce un colore, allora una tinta unita è una funzione costante ed in quanto tale ha derivata nulla).\\
+Operando una derivata seconda in una data direzione, per il significato in sè di derivata seconda, questa assume valori più elevati quando la concavità è più stretta, e assume valori pressocchè nulli quando non ci sono concavità (si può pensare alle concavità come a dei picchi o dei ventri, su di una immagine vuol dire chiazze di colore diverso).\\
+Presa una sfumatura di colore che varia in maniera lineare, la derivata seconda sarà nulla in ogni suo punto, la derivata prima sarà invece costante.\\x
+\vspace{1em}
+Per verificare la validità di questi concetti teorici si è implementato un semplice script MATLAB che, presa un'immagine, opera il calcolo delle derivate e stampa a video le sole derivate sotto forma di immagine. Ne risulterà quindi un'immagine in bianco e nero con pixel quanto più chiari quanto più e alto il valore della derivata. Saranno mostrate come immagini diverse le derivate parziali, il gradiente ed il laplaciano dell'immagine data in input, così da poterli confrontare ed evidenziarne le differenze. Ci aspettiamo che le immagini risultanti corrispondano con i bordi dell'immagine originale.\\
+Saranno mostrati i risultati prodotti da tale script dandogli in input immagini di diverso tipo, saranno poi commentati con osservazioni e considerazioni di vario tipo.
+\newpage
+Si riporta lo script MATLAB appena citato.
 \vspace{1em}
 \begin{lstlisting}[language=MATLAB]
 %---Operazioni preliminari
@@ -321,27 +336,28 @@ title('Immagine originale')
 subplot(2,3,5), imshow(uint8(h*abs(u_x + u_y)))
 title('h*(u_x + u_y)')
 subplot(2,3,6), imshow(uint8(h*abs(u_xx + u_yy)))
-title('h*(u_xx + u_yy)')
+title('h*(u_{xx} + u_{yy})')
 \end{lstlisting}
 
 \vspace{1em}
-Lo script permette di osservare come con diverse immagini molto semplici se otteniamo i risultati attesi.\\
+Eseguiamo adesso questo script che ci permetterà di osservare, fornendogli in input diverse immagini molto semplici, se abbiamo ottenuto i risultati attesi.\\
 %\vspace{1em}
 \newpage
-\begin{figure}[htb] 
+\subsubsection{Esempio 1 - Tinta unita}
+\begin{figure}[htb]
 \centering
-\includegraphics[scale=0.4, trim = 0 0 0 10.5cm, clip]{Pictures/Risultati/tinta unita bianco e nero derivate parziali.png}
-\includegraphics[scale=0.4, trim = 0 0 0 10.5cm, clip]{Pictures/Risultati/tinta unita derivate parziali.png}
+\includegraphics[scale=0.4, trim = 0 2cm 0 11.5cm, clip]{Pictures/Risultati/tinta unita bianco e nero derivate parziali.png}
+%\includegraphics[scale=0.4, trim = 0 0 0 10.5cm, clip]{Pictures/Risultati/tinta unita derivate parziali.png}
 \caption{Derivate parziali di una tinta unita.}\label{fig:figura}
 \end{figure}
 
-Si può vedere come con un'immagine a tinta unita (che sia essa in bianco e nero o a colori) le derivate sono nulle, quindi lo saranno anche gradiente e laplaciano. Confermiamo inoltre che questi principi valgono sia a colori che in bianco e nero.\\
+Si può vedere come con un'immagine a tinta unita le derivate sono nulle, quindi lo saranno anche gradiente e laplaciano.\\
 
-\newpage
+\subsubsection{Esempio 2 - Sfumatura lungo l'asse x}
 \begin{figure}[htb] 
 \centering
-\includegraphics[scale=0.4, trim = 0 0 0 10.5cm, clip]{Pictures/Risultati/sfumatura lungo x bianco e nero derivate parziali.png}
-\includegraphics[scale=0.4, trim = 0 0 0 10.5cm, clip]{Pictures/Risultati/sfumatura lungo x bianco e nero gradiente e laplaciano.png}
+\includegraphics[scale=0.4, trim = 0 2cm 0 11.5cm, clip]{Pictures/Risultati/sfumatura lungo x bianco e nero derivate parziali.png}
+\includegraphics[scale=0.4, trim = 0 2cm 0 11.5cm, clip]{Pictures/Risultati/sfumatura lungo x bianco e nero gradiente e laplaciano.png}
 \caption{Derivate parziali, gradiente e laplaciano di una sfumatura orizzontale.}\label{fig:figura}
 \end{figure}
 
@@ -350,22 +366,23 @@ Ovviamente, date queste premesse, il gradiente sarà costante uguale ad $u_x$ (s
 Il fatto che in entrambi questi esempi il laplaciano sia nullo è un buon segno, lo useremo per rilevare i bordi ed in queste immagini non ve ne sono, quindi è giusto che il laplaciano sia nullo.\\
 
 \newpage
+\subsubsection{Esempio 3 - Parziale sfumatura lungo la diagonale}
 \begin{figure}   
 \centering
 \includegraphics[scale=0.4, trim = 0 0 0 10.5cm, clip]{Pictures/Risultati/sfumatura diagonale bianco e nero derivate parziali.png}
 \includegraphics[scale=0.4, trim = 0 0 0 10.5cm, clip]{Pictures/Risultati/sfumatura diagonale bianco e nero gradiente e laplaciano.png}
-\caption{Derivate parziali, gradiente e laplaciano di una sfumatura diagonale.}\label{fig:figura}
+\caption{Derivate parziali, gradiente e laplaciano di una parziale sfumatura diagonale.}\label{fig:figura}
 \end{figure}
 
-Presa una sfumatura diagonale, ma solo su metà immagine vediamo dei riultati interessanti: entrambe le derivate parziali sono nulle nelle regioni in cui non c'è sfumatura, esattamente come nel caso della tinta unita, ed entrambe sono costanti dove c'è sfumatura (che ricordiamo essere lineare).\\
-Tutto ciò riconferma quanto visto dai punti precedenti, volgendo quindi uno sguardo al gradiente ed al laplaciano si può notare che mentre il gradiente ha un aspetto molto simile alle due derivate parziali, sommando i loro valori è semplicemente più luminoso, per quanto riguarda il lplaciano la storia cambia. Le derivate seconde sono indicatrici della variazione delle derivate prime, cioè della variazione della variazione del valore della funzione, ma l'unica variazione che hanno le derivate prime è lungo la diagonale.
+Presa una sfumatura diagonale, ma solo su metà immagine vediamo dei risultati interessanti: entrambe le derivate parziali sono nulle nelle regioni in cui non c'è sfumatura, esattamente come nel caso della tinta unita, ed entrambe sono costanti dove c'è sfumatura (che ricordiamo essere lineare).\\
+Tutto ciò riconferma quanto visto dai punti precedenti, volgendo quindi uno sguardo al gradiente ed al laplaciano si può notare che mentre il gradiente ha un aspetto molto simile alle due derivate parziali, sommando i loro valori è semplicemente più luminoso, per quanto riguarda il laplaciano la storia cambia. Le derivate seconde sono indicatrici della variazione delle derivate prime, cioè della variazione della variazione del valore della funzione, ma l'unica variazione che hanno le derivate prime è lungo la diagonale.
 Abbiamo così individuato il nostro primo bordo, cioè la diagonale che divide di fatto due regioni, una in cui il colore è costante ed una in cui sfuma.\\
 
 \vspace{1em}
-
-Si riporta un ultimo esempio, provando ad introdurre una semplice figura e osserviamo cosa accade.\\
+Si riportano ancora due varianti di un'ultima immagine esempio, provando ad introdurre una semplice figura.\\
 
 \newpage
+\subsubsection{Esempio 4 - Rettangolo bianco su sfondo nero}
 \begin{figure}[htb] 
 \centering
 \includegraphics[scale=0.4, trim = 0 0 0 10.5cm, clip]{Pictures/Risultati/rettangolo bianco e nero derivate parziali.png}
@@ -378,7 +395,11 @@ Il bordo così ottenuto è un bordo che idealmente rimarrà inalterato a prescin
 Come detto: \textit{"Il bordo così ottenuto è un bordo che idealmente rimarrà inalterato a prescindere dall'ordine della derivata"} è interessante capire perchè. Presa una striscia di pixel, cioè uno strato dell'immagine (la si può immaginare quindi come una funzione $u_y:\mathbb{R} \longrightarrow \mathbb{R}$), risulterà essa raffigurare una funzione porta!\\
 La funzione porta non è derivabile in senso classico, ripensando alla definizione di derivata avremmo un valore di +infinito prima e -infinito poi. La sua derivata sarà quindi una coppia di delta di Dirac.\\
 
+\vspace{1em}
+Proviamo in fine ad introdurre del rumore in quest'ultima immagine e osserviamo cosa accade.
+
 \newpage
+\subsubsection{Esempio 5 - Rettangolo bianco su sfondo dietro con rumore}
 \begin{figure}   
 \centering
 \includegraphics[scale=0.4, trim = 0 0 0 10.5cm, clip]{Pictures/Risultati/rettangolo bianco e nero derivate parziali con rumore.png}
@@ -387,7 +408,7 @@ La funzione porta non è derivabile in senso classico, ripensando alla definizio
 \end{figure}
 
 Si può fare una considerazione: quando si trova un elemento di disurbo, come un puntino o una chiazza di colore, questo risulterà essere una forte variazione di colore improvvisa ed in quanto tale la derivata calcolata in un intorno di quel punto sarà, in valore assoluto, molto alta.
-Questo vuol dire che il gradiente ne rileverà i bordi e il metodo Perona-Malik non lo toccherà, questa cosa non va bene: è un elemento di disturbo e va quindi eliminato\\ 
+Questo vuol dire che il gradiente ne rileverà i bordi e il metodo Perona-Malik non lo toccherà, questa cosa non va bene: è un elemento di disturbo e va quindi eliminato.\\ 
 Una possibile soluzione a questo problema verrà illustrata in seguito.\newpage
 
 
@@ -395,25 +416,26 @@ Una possibile soluzione a questo problema verrà illustrata in seguito.\newpage
 \subsection{Problema dei \textit{"bordi"} d'interferenza}
 %\subsubsection{Considerazioni sui bordi}
 %\subsubsection{Miglioramento dei bordi}
-Come evidenziato con l'ultima immagine di prova nella sezione dedicata al rilevamento dei bordi, anche gli elementi di disturbo ne hanno e vengono quindi rilevati. Questo è un problema perchè il metodo Perona-Malik tenderà a preservarli.\\
-Per ovviare a questo problema operiamo su di una copia dell'immagine una diffusione come quella operata dall'equazione del calore vista in precedenza, così facendo, in questa copia, i bordi dell'immagine risulteranno roviati, ma non scomparsi! Gli elementi di disturbo saranno invece eliminati.\\
-Moltiplicando i due gradienti così trovati si può osservare che: in corrispondenza degli elementi di disturbo il secondo gradiente sarà nullo ed il prodotto sarà dunque anch'esso nullo, vicino ai bordi il secondo gradiente non è nullo, ma il primo sì! Quindi il prodotto sarà ancora nullo, in corrispondenza degli effettivi bordi entrambi i gradienti saranno non nulli e quindi neanche il loro prodotto lo sarà.\\ Questo vuol dire che:\\
+Come evidenziato con l'ultima immagine di prova nella sezione dedicata al rilevamento dei bordi, anche gli elementi di disturbo ne hanno e vengono quindi rilevati. Questo è un problema perché il metodo Perona-Malik tenderà a preservarli.\\
+Per ovviare a questo problema operiamo su di una copia dell'immagine una diffusione come quella operata dall'equazione del calore vista in precedenza, così facendo in questa copia, i bordi dell'immagine risulteranno rovinati, ma non scomparsi! Gli elementi di disturbo saranno invece eliminati.\\
+Moltiplicando i due gradienti così trovati si può osservare che: in corrispondenza degli elementi di disturbo il secondo gradiente sarà nullo ed il prodotto sarà dunque anch'esso nullo, vicino ai bordi il secondo gradiente non è nullo, ma il primo sì! Quindi il prodotto sarà ancora nullo, in corrispondenza degli effettivi bordi entrambi i gradienti saranno non nulli e quindi neanche il loro prodotto lo sarà. Questo vuol dire che:\\
 \begin{itemize}
     \item gli elementi di disturbo sono stati eliminati
     \item l'effetto distruttivo sui bordi non viene riportato
     \item gli effettivi bordi dell'immagine vengono preservati
 \end{itemize}
 I bordi sono quindi calcolati in maniera efficiente.\\
-\vspace{1em}
+\vspace{0em}
 \subsubsection{La funzione di controllo}
-\`E doveroso fare ancora una considerazione. Serve applicare ancora una trasformazione ai nostri bordi in modo da risultare ancor più efficienti ai nostri scopi, ossia una funzione di controllo. Cerchiamo una funzione decrescente tale che c(0)=1 (quindi dove non c'è bordo opera l'eq del calore) e $\lim_{s\to\infty}c(s)=0$ (quindi tanto più i bordi sono accentuati, tanto più l'eq del calore non deve operare).
-Facciamo questo banalmente perchè considerando semplicemente i bordi, avremmo l'effetto opposto! Infatti dove non ci sono bordi $s=0$ e quindi non ci sarebbe diffusione, dove ci sono bordi molto marcati $s\to\infty$ quindi la diffusione verrebbe adoperata addirittura più del normale!
-Non a caso una delle scelte più semplici, anche se non delle più classiche nè efficienti è $c=\frac{1}{1+s/k}$ dove k è un fattore di controllo.
+\`E doveroso fare ancora una considerazione. Serve applicare ancora una trasformazione ai nostri bordi in modo da risultare ancor più efficienti ai nostri scopi, ossia una funzione di controllo. Cerchiamo una funzione decrescente tale che $k(0)=1$ e $\lim_{s\to\infty}k(s)=0$. Daremo in input a tale funzione il valore del gradiente calcolato in ogni pixel, otterremo così una mappatura che ci dice per ogni pixel in che misura operare la diffusione. Calato nel caso di studio, $k(0)=1$ vuol dire che dove non c'è bordo opera l'equazione del calore mentre $\lim_{|\nabla(u)|^2\to\infty}k(|\nabla(u)|^2)=0$ vuol dire che tanto più i bordi sono accentuati, tanto più l'equazione del calore non deve operare.
+Facciamo questo banalmente perché considerando semplicemente i bordi, avremmo l'effetto opposto! Infatti dove non ci sono bordi $\nabla(u)=0$ e quindi non ci sarebbe diffusione, dove ci sono bordi molto marcati $\nabla(u)\to\infty$ quindi la diffusione verrebbe adoperata addirittura più del normale!
+Non a caso una delle scelte più semplici, anche se non delle più classiche nè efficienti è $k=\frac{1}{1+|\nabla(u)|^2/c}$ dove c è un fattore di controllo.
 Scelte decisamente più classiche ed impiegate sono:
 \begin{itemize}
-    \item $c=e^{-\frac{s}{k}}$ che preserva maggiromente i bordi ad altro constrasto e meno quelli a basso contrasto
-    \item $c=\frac{1}{\sqrt{1+(s/k)}}$ che preserva maggiormente regioni grandi piuttosto che quelle piccole
+    \item $k=e^{-\frac{|\nabla(u)|^2}{c}}$ che preserva maggiromente i bordi ad altro constrasto e meno quelli a basso contrasto
+    \item $k=\frac{1}{\sqrt{1+(|\nabla(u)|^2/c)}}$ che preserva maggiormente regioni grandi piuttosto che quelle piccole
 \end{itemize} 
+Come visto nella sezione 2.2.1 $div(k\nabla(u))=\frac{1}{2}(k_N\nabla_N + k_S\nabla_S k_W\nabla_W + k_E\nabla_E)$ calcoliamo quindi i vettori $k_N$, $k_S$, $k_W$ e $k_E$ dando in input alla funzione di controllo scelta i vettori $\nabla_N$, $\nabla_S$, $\nabla_W$ e $\nabla_E$ rispettivamente.
 
 \newpage
 \subsection{Implementazione}
@@ -430,14 +452,14 @@ im = imnoise(im,'salt & pepper',0.02);  %Aggiunta del rumore
 % conversione in double per il calcolo.
 im = double(im);
 \end{lstlisting}
-Di norma codifichiamo le immagini come uint8 (interi senza segno da 0 a 255), tuttavia mantenere questa formattazione durante il calcolo potrebbe portare ad errori di approssimazione numerica assolutamente non trascurabili.
+Di norma codifichiamo le immagini come uint8 (interi senza segno da 0 a 255), tuttavia mantenere questa formattazione durante il calcolo potrebbe portare ad errori di approssimazione numerica assolutamente non trascurabili. Consideriamo quindi matrici a valori reali, approssimate dalla macchina a numeri macchina a doppia precisione. 
 \begin{lstlisting}[language=MATLAB, name=listato]
 % Condizioni iniziali della PDE.
 diff_im = im;
 
 num_iter=20;                            %numero di iterazioni
 delta_t=0.1;                            %costante d'integrazione
-kappa=60;                               %coefficiente di controllo del                                       gradiente
+c=60;                                   %coefficiente di controllo del                                       gradiente
 
 sigma=1;                                %costante di controllo della                                         diffusione uniforme
 
@@ -449,7 +471,7 @@ Occorre settare alcuni parametri per il calcolo:
     \vspace{0.25em}
     \textit{N.B. Sia aumentando il primo parametro sia il secondo ciò che otterremo sarà un'immagine filtrata maggiormente. La differenza è che aumentando la costante di integrazione applicheremo il metodo con maggior intensità ad ogni passo; invece aumentando il numero di iterazioni applicheremo il metodo un numero maggiore di volte. 
     Ad ogni iterazione tutti i calcoli andranno rifatti, ciò vuol dire che aumentando il numero di iterazioni e riducendo la costante di integrazione, avremo un'immagine filtrata più finemente a discapito di un grosso aumento di costo computazionale}
-    \item Coefficiente di controllo del gradiente: permette di far risaltare di più (se kappa<1) o di meno (se kappa>1) i bordi
+    \item Coefficiente di controllo del gradiente: permette di far risaltare di più (se c<1) o di meno (se c>1) i bordi
     \item costante di controllo diffusione uniforme: il calcolo del vettore c utilizzato per modificare l'equazione del calore avviene tramite gradiente. Come già analizzato nella sezione 5.3, conviene fare questo calcolo su una versione sfocata dell'immagine, per fare ciò applichiamo l'equazione del calore. Modificarne questo cofficiente significa modificare l'intensità con cui viene applicata. Un valore più alto sfoca di più e porta ad eliminare più rapidamente il rumore a discapito della definizione dei bordi.
 \end{itemize}
 Settati i parametri inizia il calcolo effettivo
@@ -477,15 +499,15 @@ for t = 1:num_iter
     nablaE_blur = convoluzione(diff_blur,hE);
 
 
-    cN = exp(-(nablaN_blur/kappa).^2);
-    cS = exp(-(nablaS_blur/kappa).^2);
-    cW = exp(-(nablaW_blur/kappa).^2);
-    cE = exp(-(nablaE_blur/kappa).^2);
+    kN = exp(-(nablaN_blur/c).^2);
+    kS = exp(-(nablaS_blur/c).^2);
+    kW = exp(-(nablaW_blur/c).^2);
+    kE = exp(-(nablaE_blur/c).^2);
 \end{lstlisting}
 Calcolati tutti i fattori possiamo in fine applicare il metodo utilizzando la formula trovata nella sezione 5.1
 \begin{lstlisting}[language=MATLAB, name=listato]
     % Soluzione discreta della PDE.
-    diff_im = diff_im + delta_t*(cN.*nablaN + cS.*nablaS + cW.*nablaW + cE.*nablaE );
+    diff_im = diff_im + delta_t*(kN.*nablaN + kS.*nablaS + kW.*nablaW + kE.*nablaE );
           
 \end{lstlisting}
 Concludiamo stampando l'immagine rumorosa e quella filtrata per poter apprezzare gli effetti sortiti

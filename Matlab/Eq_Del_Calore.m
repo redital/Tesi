@@ -14,13 +14,13 @@ Im=imresize(Im,0.3);                    %Scalamento dell'immagine nel caso
                                         %lo si ritenesse opportuno
 %Im=rgb2gray(Im);                        %La trasformo in bianco e nero
 dim=double(Im);
-%Im=uint8((dim(:,:,1)+dim(:,:,2)+dim(:,:,3))./3);
+Im=uint8((dim(:,:,1)+dim(:,:,2)+dim(:,:,3))./3);
 Im=imnoise(Im,'salt & pepper',0.02);    %Aggiungo del rumore
 
 %---Definisco le costanti e le condizioni iniziali
 
 [ny, nx, ~]=size(Im);       %Dimensioni dell'immagine
-dt=0.1;                    %Passo temporale
+dt=0.1;                     %Passo temporale
 tmax=2;                     %Tempo massimo 
 k=2;                        %Coefficiente di controllo della diffusione
 

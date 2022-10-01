@@ -31,6 +31,14 @@ elseif strcmp(nome, 'rettangolo.png')
     end
     Im=uint8(img);
     Im = imnoise(Im,'salt & pepper',0.02)
+elseif strcmp(nome, 'rettangolo sfumato.png')
+    img=ones(255);
+    for i=80:160
+        img(140:180,i)=255;
+    end
+    Im=uint8(img);
+    Im = imnoise(Im,'salt & pepper',0.02)
+    Im = uint8(f_eq_del_calore(double(Im),0.1,20,2))
 
 else
     Im=imread(nome);

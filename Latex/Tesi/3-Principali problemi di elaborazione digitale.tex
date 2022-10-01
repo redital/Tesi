@@ -4,9 +4,8 @@
 Al giorno d'oggi i computer permettono una vasta gamma di elaborazioni digitali, ce ne sono alcuni, più semplici ma di notevole interesse, ormai già perfezionati ed altri che sono ancora oggetto di studio.
 
 \subsection{Rotazioni, riflessioni,etc}
-\cite{storia}
-Le trasformazioni più semplici in assoluto riguardano movimenti rigidi come la \textbf{traslazione} o la \textbf{rotazione}, o anche omeomorfismi come la \textbf{riflessione}. Questi sono molto utili per introdurre i primi concetti matematici, come l'impiego di matrici.\\
-Definiamo una \textbf{matrice di trasformazione} che moltiplicata per un vettore di coordinate ci restituisca un altro vettore di coordinate. Questo vuol dire che quel punto va spostato dalle coordinate in cui si trovava a quelle appena calcolate. Ad esempio:\\
+Le trasformazioni più semplici in assoluto riguardano movimenti rigidi come la \textbf{traslazione} o la \textbf{rotazione}, o anche omeomorfismi come la \textbf{riflessione} \footnote{\cite{storia}}. Questi sono molto utili per introdurre i primi concetti matematici, come l'impiego di matrici.\\
+Definiamo una \textbf{matrice di trasformazione} come una matrice quadrata 3x3 tale che moltiplicata per un vettore di coordinate ci restituisca un nuovo vettore di coordinate. Applicare questo tipo di trasformazione vuol dire che il punto identificato dal primo sistema di coordinate va spostato nel punto identificato dal nuovo vettore di coordinate. Ad esempio:\\
 
 $$
 {\begin{bmatrix}
@@ -17,6 +16,7 @@ $$
 $$
 
 
+\noindent
 \`E una matrice di riflessione lungo l'asse verticale, infatti: 
 
 $$
@@ -35,7 +35,7 @@ x\\y\\1
 $$	
 
 \vspace{1em} \noindent
-Cioè ogni punto rimane alla stessa quota ma cambia la propria x con -x, che è esattamente ciò che si intende per riflessione lungo l'asse verticale.
+Il punto rimane cioè alla stessa ordinata ma si sposta lungo le ascisse da un valore di x ad uno di -x, che è esattamente ciò che si intende per riflessione lungo l'asse verticale. Eseguito questo calcolo per ogni punto appartenente all'immagine di partenza si ottiene il risultato desiderato.
 
 \noindent 
 Altri esempi possono essere:
@@ -62,6 +62,7 @@ Altri esempi possono essere:
 \end{bmatrix}&~&
 \text{Rotazione di un angolo theta}\\
 \end{align*}
+Questo tipo di trasformazioni sono solitamente dette \textbf{trasformazioni affini}
 
 
 
@@ -78,9 +79,8 @@ In genere la cosa più semplice ed affidabile è quella di far scegliere i 4 ang
 Ottenuti i 4 angoli, occorre calcolare la lunghezza e la larghezza della nuova immagine. Per fare ciò si può calcolare la lunghezza dei 4 lati banalmente con il teorema di Pitagora. A questo punto, presi i lati a due a due non adiacenti, cioè che non hanno vertici in comune, ne si confrontano le lunghezze.\\
 Per ogni coppia si adotta la lunghezza maggiore (si può anche usare quella minore ma è una scelta di scarso interesse per lo studio in atto).
 
-\vspace{30em} \noindent
+\vspace{1em} \noindent
 Ottenuti questi dati si può calcolare la matrice di trasformazione. Essa sarà del tipo:
-
 \begin{align*}
 &\begin{bmatrix}
 a_1&a_2&b_1\\
@@ -133,11 +133,24 @@ Il morphing consiste nella trasformazione fluida, graduale tra due immagini di f
 Il morphing è quindi una tecnica che combia l'uso in contemporanea di una dissolvenza incrociata e di un effetto di deformazione chiamato \textbf{warping} (termine inglese che significa appunto deformazione).
 
 \vspace{1em} \noindent
-Per operare il warping si definiscono sull'immagine di partenza dei \textit{"punti chiave"} che possono essere uniti tra di loro con delle linee e si definiscono sull'immagine di destinazione i corrispondenti punti e di conseguenza le corrispondenti linee.\\ 
+Per operare il warping si definiscono sull'immagine di partenza dei \textit{"punti chiave"} che possono essere uniti tra di loro con delle linee operando così una \textit{"triangolarizzazione"}, si definiscono quindi sull'immagine di destinazione i corrispondenti punti e di conseguenza le corrispondenti linee.\\ 
+
+\begin{figure}[htb] \centering
+\includegraphics[scale=0.3, clip]{Pictures/triangolarizzazione.png}
+\qquad \qquad
+\includegraphics[scale=0.09, clip]{Pictures/Processo morphing.png}
+\caption{Definizione dei punti e delle linee sull'immagine di partenza e sull'immagine d'arrivo \cite{morphing} e uno schema che mostra la trasformazione tra lo stato iniziale a quello finale di un singolo triangolo con un passaggio intermedio}
+\end{figure}
+
+\noindent
+Durante la dissolvenza dall'immagine iniziale a quella finale, le immagini vengono deformate tramite trasformazioni affini, facendo in modo che ciascun punto chiave si muova lungo il percorso che porta dalla sua posizione nell'immagine di partenza alla posizione del corrispondente punto nell'immagine di arrivo.
+\noindent
+Matematicamente, detto un punto chiave appartenente alla prima immagine \textbf{$p_0$} e il corrispondente punto chiave nella seconda immagine \textbf{$p_1$}, allora $\forall p_0$ appartenente alla prima immagine operiamo una traslazione del punto lungo il vettore differenza 
+$\textbf{v}=\textbf{$p_1$}-\textbf{$p_0$}$. Tutti i punti interni ai singoli triangoli verranno traslati di conseguenza. Questo è il processo di warping applicato alla prima immagine. Analogamente, applichiamo il processo di warping alla seconda immagine, cioè $\forall p_1$ appartenente alla seconda immagine, operiamo una traslazione del punto lungo il vettore differenza $-\textbf{v}=\textbf{$p_0$}-\textbf{$p_1$}$.\\
+I passaggi intermedi saranno calcolati come segue:
+Sia $t \in (0,1)$, allora $p_t=p_0vt=p_1(-v)t$. In questo modo, $\forall t \in (0,1)$ i punti chiave nelle due immagini si troveranno nella stessa posizione. Posta l'immagine iniziale e al di sopra di quella finale e applicata alla prima una dissolvenza di ottiene la trasformazione desiderata.
+
 \begin{figure}[htb] \centering
 \includegraphics[scale=0.5, trim = 0 1.1cm 0 0, clip]{Pictures/Striscia_morphing.jpg}
 \caption{Processo di morphing con alcuni risultati intermedi.}\label{fig:figura}
 \end{figure}
-
-\noindent
-Durante la dissolvenza dall'immagine iniziale a quella finale, le immagini vengono deformate facendo in modo che ciascun punto chiave si muova lungo il percorso che porta dalla sua posizione nell'immagine di partenza alla posizione del corrispondente punto nell'immagine di arrivo.
