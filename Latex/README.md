@@ -10,6 +10,7 @@ La cartella contiene un file per ogni sezione della tesi, essi sono:
 - 4-Equazione del calore e metodo Perona-Malik
 - 5-Metodo Perona-Malik
 - 6-Esempi di utilizzo
+- 7-Conclusioni
 ### Pictures
 La cartella contiene, come intuibile dal nome delle immagini utili incluse nella tesi, esse sono organizzate come segue:
 - Il logo del Politecnico di Torino, per il frontespizio, sia la nuova che la vecchia versione nel caso si voglia cambiare.
